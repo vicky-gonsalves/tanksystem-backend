@@ -4,7 +4,7 @@
 
 'use strict';
 
-import FindingEvents from './index.events';
+import GetStatusEvents from './index.events';
 
 // Model events to emit
 var events = ['save', 'remove'];
@@ -15,7 +15,7 @@ export function register(socket) {
     var event = events[i];
     var listener = createListener('get-status:' + event, socket);
 
-    FindingEvents.on(event, listener);
+    GetStatusEvents.on(event, listener);
     socket.on('disconnect', removeListener(event, listener));
   }
 }
@@ -29,6 +29,6 @@ function createListener(event, socket) {
 
 function removeListener(event, listener) {
   return function() {
-    FindingEvents.removeListener(event, listener);
+    GetStatusEvents.removeListener(event, listener);
   };
 }
