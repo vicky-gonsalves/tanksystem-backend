@@ -16,7 +16,9 @@ require('./socketio').default(socketio);
 socketio.on('connection', (socket) => {
   console.log("Connected");
   socket.emit('welcome', {message: 'Connected !!!!'});
-  initializeStatus();
+  initializeStatus().then((status) => {
+    socket.emit('get-status:init', status)
+  });
   socket.on('connection', function(data) {
     console.log(data);
   });
