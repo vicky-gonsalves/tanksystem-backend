@@ -4,10 +4,10 @@
 
 'use strict';
 
-import GetStatusEvents from './index.events';
+import GetStatusEvents from './model';
 
 // Model events to emit
-var events = ['save', 'remove'];
+var events = ['save', 'update', 'remove'];
 
 export function register(socket) {
   // Bind model events to socket events
