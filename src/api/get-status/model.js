@@ -23,6 +23,7 @@ getStatusSchema.methods = {
     const view = {
       // simple view
       id: this.id,
+      identifier: this.identifier,
       motor: this.motor,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
