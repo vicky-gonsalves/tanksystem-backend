@@ -1,5 +1,6 @@
 import http from 'http';
 import api from './api';
+import {initializeStatus} from './api/get-status/controller';
 import {apiRoot, env, ip, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
@@ -15,6 +16,7 @@ require('./socketio').default(socketio);
 socketio.on('connection', (socket) => {
   console.log("Connected");
   socket.emit('welcome', {message: 'Connected !!!!'});
+  initializeStatus();
   socket.on('connection', function(data) {
     console.log(data);
   });
