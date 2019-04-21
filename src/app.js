@@ -16,17 +16,22 @@ const ssl_options = {
 const app = express(apiRoot, api);
 let server;
 let secureServer;
+let socketio;
 
 if (env === 'production') {
   secureServer = https.createServer(ssl_options, app);
+  socketio = require('socket.io')(secureServer, {
+    serveClient: env !== 'production',
+    path: '/socket.io-client'
+  });
 } else {
   server = http.createServer(app);
+  socketio = require('socket.io')(server, {
+    serveClient: env !== 'production',
+    path: '/socket.io-client'
+  });
 }
 
-var socketio = require('socket.io')(server, {
-  serveClient: env !== 'production',
-  path: '/socket.io-client'
-});
 require('./socketio').default(socketio);
 
 socketio.on('connection', (socket) => {
