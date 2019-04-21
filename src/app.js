@@ -8,7 +8,7 @@ const app = express(apiRoot, api);
 const server = http.createServer(app);
 var socketio = require('socket.io')(server, {
   serveClient: env !== 'production',
-  path: '/socket.io-client'
+  path: '/socket.io'
 });
 require('./socketio').default(socketio);
 
