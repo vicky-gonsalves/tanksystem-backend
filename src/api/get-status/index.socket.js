@@ -23,6 +23,7 @@ export function register(socket) {
 
 function createListener(event, socket) {
   return function(doc) {
+    console.log("HERE");
     socket.emit(event, doc);
   };
 }
