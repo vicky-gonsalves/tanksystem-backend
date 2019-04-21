@@ -41,7 +41,8 @@ const config = {
         debug: false
       }
     },
-    seedDB: true
+    seedDB: true,
+    secureport: 443
   },
   development: {
     mongo: {
@@ -50,7 +51,8 @@ const config = {
         debug: true
       }
     },
-    seedDB: true
+    seedDB: true,
+    secureport: 443
   },
   production: {
     ip: process.env.IP || undefined,
@@ -61,7 +63,8 @@ const config = {
         debug: true
       }
     },
-    seedDB: true
+    seedDB: true,
+    secureport: process.env.SECUREPORT || undefined,
   }
 }
 
