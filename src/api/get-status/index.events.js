@@ -5,7 +5,7 @@
 'use strict';
 
 import {EventEmitter} from 'events';
-import GetStatus from '../get-status/model';
+import schema from '../get-status/model';
 var GetStatusEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
@@ -20,7 +20,7 @@ var events = {
 // Register the event emitter to the model events
 for (var e in events) {
   var event = events[e];
-  GetStatus.schema.post(e, emitEvent(event));
+  schema.post(e, emitEvent(event));
 }
 
 function emitEvent(event) {
