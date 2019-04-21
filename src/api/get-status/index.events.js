@@ -5,7 +5,7 @@
 'use strict';
 
 import {EventEmitter} from 'events';
-import GetStatus from '.';
+import GetStatus from '../get-status/model';
 var GetStatusEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
