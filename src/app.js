@@ -42,8 +42,8 @@ if (seedDB) {
 
 setImmediate(() => {
   if (env === 'production') {
-    secureServer.listen(secureport, ip, () => {
-      console.log('Express server listening on https://%s:%d, in %s mode', ip, secureport, env);
+    secureServer.listen(port, ip, () => {
+      console.log('Express server listening on https://%s:%d, in %s mode', ip, port, env);
     })
   } else {
     server.listen(port, ip, () => {
