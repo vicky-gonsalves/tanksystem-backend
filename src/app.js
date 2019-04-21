@@ -1,13 +1,18 @@
 import http from 'http'
-import { env, mongo, port, ip, apiRoot,seedDB } from './config'
-import mongoose from './services/mongoose'
-import express from './services/express'
 import api from './api'
+import {apiRoot, env, ip, mongo, port, seedDB} from './config'
+import express from './services/express'
+import mongoose from './services/mongoose'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
+var socketio = require('socket.io')(server, {
+  serveClient: env !== 'production',
+  path: '/socket.io-client'
+});
+require('./socketio').default(socketio);
 
-mongoose.connect(mongo.uri, { useMongoClient: true })
+mongoose.connect(mongo.uri, {useMongoClient: true})
 mongoose.Promise = Promise
 
 // Populate databases with sample data
