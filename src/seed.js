@@ -7,7 +7,7 @@ const seedGetStatus = true;
 if (seedGetStatus) {
   GetStatus.find({}).remove()
     .then(() => {
-      Connection.create({
+      GetStatus.create({
         identifier: 'status',
         motor: 'off'
       });
