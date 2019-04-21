@@ -14,11 +14,13 @@ const ssl_options = {
 };
 
 const app = express(apiRoot, api);
-const server = http.createServer(app);
+let server;
 let secureServer;
 
 if (env === 'production') {
   secureServer = https.createServer(ssl_options, app);
+} else {
+  server = http.createServer(app);
 }
 
 var socketio = require('socket.io')(server, {
