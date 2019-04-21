@@ -1,37 +1,15 @@
 import http from 'http';
-import https from 'https';
 import api from './api';
-import {apiRoot, env, ip, mongo, port, secureport, seedDB} from './config';
+import {apiRoot, env, ip, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
 
-const fs = require('fs');
-
-const ssl_options = {
-  key: fs.readFileSync('./src/keys/private.key'),
-  cert: fs.readFileSync('./src/keys/cert.crt'),
-  ca: fs.readFileSync('./src/keys/intermediate.crt')
-};
-
 const app = express(apiRoot, api);
-let server;
-let secureServer;
-let socketio;
-
-if (env === 'production') {
-  secureServer = https.createServer(ssl_options, app);
-  socketio = require('socket.io')(secureServer, {
-    serveClient: env !== 'production',
-    path: '/socket.io-client'
-  });
-} else {
-  server = http.createServer(app);
-  socketio = require('socket.io')(server, {
-    serveClient: env !== 'production',
-    path: '/socket.io-client'
-  });
-}
-
+const server = http.createServer(app);
+var socketio = require('socket.io')(server, {
+  serveClient: env !== 'production',
+  path: '/socket.io-client'
+});
 require('./socketio').default(socketio);
 
 socketio.on('connection', (socket) => {
@@ -48,15 +26,9 @@ if (seedDB) {
 }
 
 setImmediate(() => {
-  if (env === 'production') {
-    secureServer.listen(port, ip, () => {
-      console.log('Express server listening on https://%s:%d, in %s mode', ip, port, env);
-    })
-  } else {
-    server.listen(port, ip, () => {
-      console.log('Express server listening on http://%s:%d, in %s mode', ip, port, env);
-    })
-  }
+  server.listen(port, ip, () => {
+    console.log('Express server listening on http://%s:%d, in %s mode', ip, port, env)
+  })
 });
 
 export default app;
