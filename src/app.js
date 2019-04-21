@@ -1,10 +1,11 @@
 import http from 'http';
 import https from 'https';
 import api from './api';
-import fs from 'fs';
 import {apiRoot, env, ip, mongo, port, secureport, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
+
+const fs = require('fs');
 
 const ssl_options = {
   key: fs.readFileSync('./src/keys/private.key'),
