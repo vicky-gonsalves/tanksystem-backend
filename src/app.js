@@ -13,7 +13,15 @@ var socketio = require('socket.io')(server, {
 require('./socketio').default(socketio);
 
 socketio.on('connection', (socket) => {
-  console.log('Client connected');
+  console.log("Connected");
+  socket.emit('welcome', {message: 'Connected !!!!'});
+  socket.on('connection', function(data) {
+    console.log(data);
+  });
+  socket.on('atime', function(data) {
+    sendTime();
+    console.log(data);
+  });
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
@@ -32,3 +40,8 @@ setImmediate(() => {
 });
 
 export default app;
+
+
+function sendTime() {
+  socketio.sockets.emit('atime', {time: new Date().toJSON()});
+}
