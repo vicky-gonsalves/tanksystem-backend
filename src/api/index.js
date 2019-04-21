@@ -1,6 +1,9 @@
 import { Router } from 'express'
+import getStatus from './get-status'
 
 const router = new Router()
+
+router.use('/get-statuses', getStatus)
 
 /**
  * @apiDefine master Master access only

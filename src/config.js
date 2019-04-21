@@ -40,7 +40,8 @@ const config = {
       options: {
         debug: false
       }
-    }
+    },
+    seedDB: true
   },
   development: {
     mongo: {
@@ -48,7 +49,8 @@ const config = {
       options: {
         debug: true
       }
-    }
+    },
+    seedDB: true
   },
   production: {
     ip: process.env.IP || undefined,
@@ -58,7 +60,8 @@ const config = {
       options: {
         debug: true
       }
-    }
+    },
+    seedDB: true
   }
 }
 
