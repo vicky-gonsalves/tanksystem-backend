@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
-import { schema } from './model'
-export GetStatus, { schema } from './model'
+import {middleware as body} from 'bodymen'
+import {Router} from 'express'
+import {middleware as query} from 'querymen'
+import {create, destroy, index, show, update} from './controller'
+import {schema} from './model'
+
+export GetStatus, {schema} from './model'
 
 const router = new Router()
-const { motor } = schema.tree
+const {motor, automate} = schema.tree
 
 /**
  * @api {post} /get-statuses Create get status
@@ -18,8 +19,8 @@ const { motor } = schema.tree
  * @apiError 404 Get status not found.
  */
 router.post('/',
-  body({ motor }),
-  create)
+  body({motor, automate}),
+  create);
 
 /**
  * @api {get} /get-statuses Retrieve get statuses
@@ -32,7 +33,7 @@ router.post('/',
  */
 router.get('/',
   query(),
-  index)
+  index);
 
 /**
  * @api {get} /get-statuses/:id Retrieve get status
@@ -43,7 +44,7 @@ router.get('/',
  * @apiError 404 Get status not found.
  */
 router.get('/:id',
-  show)
+  show);
 
 /**
  * @api {put} /get-statuses/:id Update get status
@@ -55,8 +56,8 @@ router.get('/:id',
  * @apiError 404 Get status not found.
  */
 router.put('/:id',
-  body({ motor }),
-  update)
+  body({motor, automate}),
+  update);
 
 /**
  * @api {delete} /get-statuses/:id Delete get status
@@ -66,6 +67,6 @@ router.put('/:id',
  * @apiError 404 Get status not found.
  */
 router.delete('/:id',
-  destroy)
+  destroy);
 
 export default router

@@ -12,6 +12,10 @@ export const getStatusSchema = new Schema({
   },
   motor: {
     type: String
+  },
+  automate: {
+    type: Boolean,
+    default: true
   }
 }, {
   timestamps: true,
@@ -30,6 +34,7 @@ getStatusSchema.methods = {
       id: this.id,
       identifier: this.identifier,
       motor: this.motor,
+      automate: this.automate,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
