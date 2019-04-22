@@ -1,6 +1,6 @@
 import http from 'http';
 import api from './api';
-import {initializeStatus} from './api/get-status/controller';
+import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {apiRoot, env, ip, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
@@ -25,6 +25,11 @@ socketio.on('connection', (socket) => {
   socket.on('atime', function(data) {
     sendTime();
     console.log(data);
+  });
+  socket.on('get-status:put', function(data) {
+    updateStatus(data).then((status) => {
+      console.log('Status Updated');
+    });
   });
   socket.on('disconnect', () => console.log('Client disconnected'));
 });

@@ -49,3 +49,14 @@ export const initializeStatus = () => {
       .catch(err => reject(err))
   })
 };
+
+export const updateStatus = (payload) => {
+  return new Promise(function(resolve, reject) {
+    GetStatus.findOne({identifier: 'status'})
+      .then((getStatus) => getStatus ? Object.assign(getStatus, payload).save() : null)
+      .then((getStatus) => {
+        return resolve(getStatus ? getStatus.view() : null);
+      })
+      .catch(err => reject(err))
+  })
+};
