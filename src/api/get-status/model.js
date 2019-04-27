@@ -19,6 +19,9 @@ export const getStatusSchema = new Schema({
   },
   tankFilled: {
     type: Number
+  },
+  websocket: {
+    type: String
   }
 }, {
   timestamps: true,
@@ -39,6 +42,7 @@ getStatusSchema.methods = {
       motor: this.motor,
       automate: this.automate,
       tankFilled: this.tankFilled,
+      websocket: this.websocket,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
