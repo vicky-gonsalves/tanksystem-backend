@@ -16,6 +16,9 @@ export const getStatusSchema = new Schema({
   automate: {
     type: Boolean,
     default: true
+  },
+  tankFilled: {
+    type: Number
   }
 }, {
   timestamps: true,
@@ -35,6 +38,7 @@ getStatusSchema.methods = {
       identifier: this.identifier,
       motor: this.motor,
       automate: this.automate,
+      tankFilled: this.tankFilled,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
