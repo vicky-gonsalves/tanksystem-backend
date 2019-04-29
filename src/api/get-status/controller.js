@@ -28,7 +28,15 @@ export const show = ({params}, res, next) =>
 export const update = ({bodymen: {body}, params}, res, next) =>
   GetStatus.findOne({identifier: params.id})
     .then(notFound(res))
-    .then((getStatus) => getStatus ? Object.assign(getStatus, body).save() : null)
+    .then((getStatus) => {
+      if (getStatus) {
+        getStatus.markModified('motor');
+        getStatus.markModified('automate');
+        getStatus.markModified('tankFilled');
+        getStatus.markModified('websocket');
+        Object.assign(getStatus, body).save()
+      }
+    })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
     .then(success(res))
     .catch(next);
@@ -53,7 +61,15 @@ export const initializeStatus = () => {
 export const updateStatus = (payload) => {
   return new Promise(function(resolve, reject) {
     GetStatus.findOne({identifier: 'status'})
-      .then((getStatus) => getStatus ? Object.assign(getStatus, payload).save() : null)
+      .then((getStatus) => {
+        if (getStatus) {
+          getStatus.markModified('motor');
+          getStatus.markModified('automate');
+          getStatus.markModified('tankFilled');
+          getStatus.markModified('websocket');
+          Object.assign(getStatus, body).save()
+        }
+      })
       .then((getStatus) => {
         return resolve(getStatus ? getStatus.view() : null);
       })

@@ -1,9 +1,11 @@
 import { Router } from 'express'
 import getStatus from './get-status'
+import log from './log'
 
 const router = new Router()
 
 router.use('/get-statuses', getStatus)
+router.use('/logs', log)
 
 /**
  * @apiDefine master Master access only
