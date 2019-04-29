@@ -54,7 +54,7 @@ app.post('/subscription', (req, res) => {
   fakeDatabase.push(subscription)
 });
 
-app.get('/sendNotification', (req, res) => {
+app.post('/sendNotification', (req, res) => {
   const notificationPayload = {
     notification: {
       title: 'New Notification',
