@@ -1,3 +1,4 @@
+const webpush = require('web-push');
 const fakeDatabase = [];
 export const subscription = (req, res, next) => {
   const subscription = req.body;
