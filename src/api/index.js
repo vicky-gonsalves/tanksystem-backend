@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import {Router} from 'express'
 import getStatus from './get-status'
 import log from './log'
 
