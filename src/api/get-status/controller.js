@@ -67,7 +67,7 @@ export const updateStatus = (payload) => {
           getStatus.markModified('automate');
           getStatus.markModified('tankFilled');
           getStatus.markModified('websocket');
-          Object.assign(getStatus, body).save()
+          Object.assign(getStatus, payload).save()
         }
       })
       .then((getStatus) => {
