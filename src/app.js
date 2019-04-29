@@ -46,35 +46,8 @@ mongoose.Promise = Promise;
 if (seedDB) {
   require('./seed');
 }
-const fakeDatabase = [];
+
 webpush.setVapidDetails('mailto:vicky.gonsalves@outlook.com', PUBLIC_VAPID, PRIVATE_VAPID);
-
-app.post('/subscription', (req, res) => {
-  const subscription = req.body;
-  fakeDatabase.push(subscription)
-});
-
-app.post('/sendNotification', (req, res) => {
-  const notificationPayload = {
-    notification: {
-      title: 'New Notification',
-      body: 'This is the body of the notification',
-      icon: 'assets/icons/icon-512x512.png',
-    },
-  };
-
-  const promises = [];
-  fakeDatabase.forEach(subscription => {
-    promises.push(
-      webpush.sendNotification(
-        subscription,
-        JSON.stringify(notificationPayload)
-      )
-    )
-  });
-  Promise.all(promises).then(() => res.sendStatus(200));
-});
-
 
 setImmediate(() => {
   server.listen(port, ip, () => {
