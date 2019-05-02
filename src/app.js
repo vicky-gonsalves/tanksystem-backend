@@ -1,6 +1,7 @@
 import http from 'http';
 import api from './api';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
+import {initializeLightStatus, updateLightStatus} from './api/light/controller';
 import {apiRoot, env, ip, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
@@ -24,6 +25,9 @@ socketio.on('connection', (socket) => {
   initializeStatus().then((status) => {
     socket.emit('get-status:init', status)
   });
+  initializeLightStatus().then((status) => {
+    socket.emit('get-light:init', status)
+  });
   socket.on('connection', function(data) {
     console.log(data);
   });
@@ -33,7 +37,12 @@ socketio.on('connection', (socket) => {
   });
   socket.on('get-status:put', function(data) {
     updateStatus(data).then((status) => {
-      console.log('Status Updated');
+      console.log('Tank Status Updated');
+    });
+  });
+  socket.on('get-light:put', function(data) {
+    updateLightStatus(data).then((status) => {
+      console.log('Light Status Updated');
     });
   });
   socket.on('disconnect', () => console.log('Client disconnected'));

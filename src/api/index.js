@@ -1,13 +1,15 @@
-import {Router} from 'express'
-import getStatus from './get-status'
-import log from './log'
-import subscribe from './subscribe'
+import {Router} from 'express';
+import getStatus from './get-status';
+import log from './log';
+import subscribe from './subscribe';
+import light from './light';
 
-const router = new Router()
+const router = new Router();
 
-router.use('/get-statuses', getStatus)
-router.use('/logs', log)
-router.use('/subscription', subscribe)
+router.use('/get-statuses', getStatus);
+router.use('/logs', log);
+router.use('/subscription', subscribe);
+router.use('/lights', light);
 
 /**
  * @apiDefine master Master access only
