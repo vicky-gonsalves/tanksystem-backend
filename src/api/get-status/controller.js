@@ -34,6 +34,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         getStatus.markModified('automate');
         getStatus.markModified('tankFilled');
         getStatus.markModified('websocket');
+        getStatus.markModified('waterHeight');
         Object.assign(getStatus, body).save()
       }
     })
@@ -67,6 +68,7 @@ export const updateStatus = (payload) => {
           getStatus.markModified('automate');
           getStatus.markModified('tankFilled');
           getStatus.markModified('websocket');
+          getStatus.markModified('waterHeight');
           Object.assign(getStatus, payload).save()
         }
       })

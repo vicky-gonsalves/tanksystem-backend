@@ -20,6 +20,9 @@ export const getStatusSchema = new Schema({
   tankFilled: {
     type: Number
   },
+  waterHeight: {
+    type: Number
+  },
   websocket: {
     type: String
   }
@@ -43,6 +46,7 @@ getStatusSchema.methods = {
       automate: this.automate,
       tankFilled: this.tankFilled,
       websocket: this.websocket,
+      waterHeight: this.waterHeight,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
