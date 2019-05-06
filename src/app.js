@@ -19,6 +19,9 @@ const socketio = require('socket.io')(server, {
 });
 require('./socketio').default(socketio);
 
+let tankSystemId;
+let lightSystemId;
+
 socketio.on('connection', (socket) => {
   console.log("Connected");
   socket.emit('welcome', {message: 'Connected !!!!'});
@@ -27,9 +30,6 @@ socketio.on('connection', (socket) => {
   });
   initializeLightStatus().then((status) => {
     socket.emit('get-light:init', status)
-  });
-  socket.on('connection', function(data) {
-    console.log(data);
   });
   socket.on('atime', function(data) {
     sendTime();
@@ -45,7 +45,27 @@ socketio.on('connection', (socket) => {
       console.log('Light Status Updated');
     });
   });
-  socket.on('disconnect', () => console.log('Client disconnected'));
+  socket.on('tankSystem', function(data) {
+    tankSystemId = socket.id;
+    console.log('Received tank system Id :' + tankSystemId);
+  });
+  socket.on('lightSystem', function(data) {
+    lightSystemId = socket.id;
+    console.log('Received lights system Id :' + lightSystemId);
+  });
+  socket.on('disconnect', () => {
+    if (socket.id === tankSystemId) {
+      updateStatus({websocket: 'disconnected'}).then((status) => {
+        console.log('Tank Status Updated');
+      });
+    }
+    if (socket.id === lightSystemId) {
+      updateLightStatus({websocket: 'disconnected'}).then((status) => {
+        console.log('Light Status Updated');
+      });
+    }
+    console.log('Client disconnected')
+  });
 });
 
 mongoose.connect(mongo.uri, {useMongoClient: true});

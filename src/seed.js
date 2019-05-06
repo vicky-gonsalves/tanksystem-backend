@@ -11,7 +11,8 @@ if (seedGetStatus) {
     .then(() => {
       GetStatus.create({
         identifier: 'status',
-        motor: 'off'
+        motor: 'off',
+        websocket: 'disconnected'
       });
     })
     .then(() => {
@@ -29,6 +30,7 @@ if (seedLight) {
         light2: false,
         light3: false,
         light4: false,
+        websocket: 'disconnected',
         flag: false
       });
     })
