@@ -1,5 +1,5 @@
-import {GetStatus} from '.'
-import {notFound, success} from '../../services/response/'
+import {GetStatus} from '.';
+import {notFound, success} from '../../services/response/';
 
 export const create = ({bodymen: {body}}, res, next) =>
   GetStatus.create(body)
@@ -35,6 +35,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         getStatus.markModified('tankFilled');
         getStatus.markModified('websocket');
         getStatus.markModified('waterHeight');
+        getStatus.markModified('skipCutoff');
         Object.assign(getStatus, body).save()
       }
     })
@@ -69,6 +70,7 @@ export const updateStatus = (payload) => {
           getStatus.markModified('tankFilled');
           getStatus.markModified('websocket');
           getStatus.markModified('waterHeight');
+          getStatus.markModified('skipCutoff');
           Object.assign(getStatus, payload).save()
         }
       })

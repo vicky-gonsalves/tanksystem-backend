@@ -1,13 +1,13 @@
-import {middleware as body} from 'bodymen'
-import {Router} from 'express'
-import {middleware as query} from 'querymen'
-import {create, destroy, index, show, update} from './controller'
-import {schema} from './model'
+import {middleware as body} from 'bodymen';
+import {Router} from 'express';
+import {middleware as query} from 'querymen';
+import {create, destroy, index, show, update} from './controller';
+import {schema} from './model';
 
-export GetStatus, {schema} from './model'
+export GetStatus, {schema} from './model';
 
-const router = new Router()
-const {motor, automate, tankFilled, websocket, waterHeight} = schema.tree
+const router = new Router();
+const {motor, automate, tankFilled, websocket, waterHeight, skipCutoff} = schema.tree;
 
 /**
  * @api {post} /get-statuses Create get status
@@ -19,7 +19,7 @@ const {motor, automate, tankFilled, websocket, waterHeight} = schema.tree
  * @apiError 404 Get status not found.
  */
 router.post('/',
-  body({motor, automate, tankFilled, websocket, waterHeight}),
+  body({motor, automate, tankFilled, websocket, waterHeight, skipCutoff}),
   create);
 
 /**
@@ -56,7 +56,7 @@ router.get('/:id',
  * @apiError 404 Get status not found.
  */
 router.put('/:id',
-  body({motor, automate, tankFilled, websocket, waterHeight}),
+  body({motor, automate, tankFilled, websocket, waterHeight, skipCutoff}),
   update);
 
 /**

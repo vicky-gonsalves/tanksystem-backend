@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import mongoose, {Schema} from 'mongoose'
+import mongoose, {Schema} from 'mongoose';
 
 export const GetStatusEvents = new EventEmitter();
 // Set max event listeners (0 == unlimited)
@@ -22,6 +22,10 @@ export const getStatusSchema = new Schema({
   },
   waterHeight: {
     type: Number
+  },
+  skipCutoff: {
+    type: Boolean,
+    default: false
   },
   websocket: {
     type: String
@@ -47,6 +51,7 @@ getStatusSchema.methods = {
       tankFilled: this.tankFilled,
       websocket: this.websocket,
       waterHeight: this.waterHeight,
+      skipCutoff: this.skipCutoff,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
