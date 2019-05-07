@@ -25,9 +25,7 @@ let lightSystemId;
 // io.of('/test');
 socketio.use((socket, next) => {
   const header = socket.handshake.headers['authorization'];
-  console.log(header);
-  console.log(socket.id);
-  let authentication = request.headers.authorization.replace(/^Basic/, '');
+  let authentication = socket.headers.authorization.replace(/^Basic/, '');
   authentication = (new Buffer(authentication, 'base64')).toString('utf8');
   let loginInfo = authentication.split(':');
   if (loginInfo[0] === 'tank00000000001') {
