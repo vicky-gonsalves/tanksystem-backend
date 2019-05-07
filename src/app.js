@@ -43,7 +43,17 @@ socketio.use((socket, next) => {
   // return next(new Error('authentication error'));
 });
 socketio.on('connection', (socket) => {
-  console.log("Connected");
+  if (socket.id === tankSystemId) {
+    updateStatus({websocket: 'connected'}).then((status) => {
+      console.log('Tank Status:Disconnected Updated');
+    });
+  }
+  if (socket.id === lightSystemId) {
+    updateLightStatus({websocket: 'connected'}).then((status) => {
+      console.log('Light Status:Disconnected Updated');
+    });
+  }
+  console.log('Client connected');
   socket.emit('welcome', {message: 'Connected !!!!'});
   initializeStatus().then((status) => {
     socket.emit('get-status:init', status)
