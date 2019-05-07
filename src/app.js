@@ -22,6 +22,17 @@ require('./socketio').default(socketio);
 let tankSystemId;
 let lightSystemId;
 
+// io.of('/test');
+socketio.use((socket, next) => {
+  const header = socket.handshake.headers['authorization'];
+  console.log(header);
+  console.log(socket.id);
+  // if (isValidJwt(header)) {
+  //   return next();
+  // }
+  return next();
+  // return next(new Error('authentication error'));
+});
 socketio.on('connection', (socket) => {
   console.log("Connected");
   socket.emit('welcome', {message: 'Connected !!!!'});
