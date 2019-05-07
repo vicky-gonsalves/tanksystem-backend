@@ -24,21 +24,23 @@ let lightSystemId;
 
 // io.of('/test');
 socketio.use((socket, next) => {
-  const header = socket.handshake.headers['authorization'];
-  let authentication = header.replace(/^Basic/, '');
-  authentication = (new Buffer(authentication, 'base64')).toString('utf8');
-  let loginInfo = authentication.split(':');
-  if (loginInfo[0] === 'tank00000000001') {
-    tankSystemId = socket.id;
-    console.log('Received tank system Id :' + tankSystemId);
+  if (socket && socket.handshake && socket.handshake.headers && socket.handshake.headers.authorization) {
+    const header = socket.handshake.headers['authorization'];
+    let authentication = header.replace(/^Basic/, '');
+    authentication = (new Buffer(authentication, 'base64')).toString('utf8');
+    let loginInfo = authentication.split(':');
+    if (loginInfo[0] === 'tank00000000001') {
+      tankSystemId = socket.id;
+      console.log('Received tank system Id :' + tankSystemId);
+    }
+    if (loginInfo[0] === 'light00000000001') {
+      tankSystemId = socket.id;
+      console.log('Received tank system Id :' + lightSystemId);
+    }
+    // if (isValidJwt(header)) {
+    //   return next();
+    // }
   }
-  if (loginInfo[0] === 'light00000000001') {
-    tankSystemId = socket.id;
-    console.log('Received tank system Id :' + lightSystemId);
-  }
-  // if (isValidJwt(header)) {
-  //   return next();
-  // }
   return next();
   // return next(new Error('authentication error'));
 });
