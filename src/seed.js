@@ -11,6 +11,8 @@ if (seedGetStatus) {
     .then(() => {
       GetStatus.create({
         identifier: 'status',
+        tankFilled: 80,
+        waterHeight: 100,
         motor: 'off',
         websocket: 'disconnected'
       });
