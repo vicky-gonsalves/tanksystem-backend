@@ -15,6 +15,7 @@
     "lint": "eslint src",
     "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
     "postdocs": "opn docs/index.html",
+    "staging_push_and_deploy": "git push origin HEAD:development",
     "prod_push_and_deploy": "git push origin HEAD:master && git push heroku HEAD:master"
   },
   "jest": {

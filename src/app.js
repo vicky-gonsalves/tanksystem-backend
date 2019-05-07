@@ -1,28 +1,13 @@
-import fs from 'fs';
-import https from 'https';
-import path from 'path';
+import http from 'http';
 import api from './api';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
-import {apiRoot, env, ip, mongo, port, secureport, seedDB} from './config';
+import {apiRoot, env, ip, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
 
-const options = {
-  // this is the private key only
-  key: fs.readFileSync(path.join('src/keys', 'cert.key'), 'utf8')
-
-// this must be the fullchain (cert + intermediates)
-  , cert: fs.readFileSync(path.join('src/keys', 'cert.pem'), 'utf8')
-
-// this stuff is generally only for peer certificates
-// , ca: [ fs.readFileSync(path.join('src/keys', 'server.crt'), 'utf8')]
-//, requestCert: false
-};
-
-
 const app = express(apiRoot, api);
-const server = https.createServer(options, app);
+const server = http.createServer(app);
 const webpush = require('web-push');
 const PUBLIC_VAPID =
   'BEJp0Car3wMy9KIBpAwZYJXvmtDynRAUO5FH21f-kD2KDdszayFkoQH7vavJcPmKr_3qO_QSp6mO1AsUi2XavkQ';
@@ -39,7 +24,6 @@ let lightSystemId;
 
 socketio.on('connection', (socket) => {
   console.log("Connected");
-  console.log(socket.handshake.headers);
   socket.emit('welcome', {message: 'Connected !!!!'});
   initializeStatus().then((status) => {
     socket.emit('get-status:init', status)
@@ -63,7 +47,6 @@ socketio.on('connection', (socket) => {
   });
   socket.on('tankSystem', function(data) {
     tankSystemId = socket.id;
-    console.log(data);
     console.log('Received tank system Id :' + tankSystemId);
   });
   socket.on('lightSystem', function(data) {
