@@ -27,6 +27,17 @@ socketio.use((socket, next) => {
   const header = socket.handshake.headers['authorization'];
   console.log(header);
   console.log(socket.id);
+  let authentication = request.headers.authorization.replace(/^Basic/, '');
+  authentication = (new Buffer(authentication, 'base64')).toString('utf8');
+  let loginInfo = authentication.split(':');
+  if (loginInfo[0] === 'tank00000000001') {
+    tankSystemId = socket.id;
+    console.log('Received tank system Id :' + tankSystemId);
+  }
+  if (loginInfo[0] === 'light00000000001') {
+    tankSystemId = socket.id;
+    console.log('Received tank system Id :' + lightSystemId);
+  }
   // if (isValidJwt(header)) {
   //   return next();
   // }
@@ -56,26 +67,18 @@ socketio.on('connection', (socket) => {
       console.log('Light Status Updated');
     });
   });
-  socket.on('tankSystem', function(data) {
-    tankSystemId = socket.id;
-    console.log('Received tank system Id :' + tankSystemId);
-  });
-  socket.on('lightSystem', function(data) {
-    lightSystemId = socket.id;
-    console.log('Received lights system Id :' + lightSystemId);
-  });
   socket.on('disconnect', () => {
     if (socket.id === tankSystemId) {
       updateStatus({websocket: 'disconnected'}).then((status) => {
-        console.log('Tank Status Updated');
+        console.log('Tank Status:Disconnected Updated');
       });
     }
     if (socket.id === lightSystemId) {
       updateLightStatus({websocket: 'disconnected'}).then((status) => {
-        console.log('Light Status Updated');
+        console.log('Light Status:Disconnected Updated');
       });
     }
-    console.log('Client disconnected')
+    console.log('Client disconnected');
   });
 });
 
