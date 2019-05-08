@@ -77,7 +77,7 @@ export const updateStatus = (payload) => {
         }
       })
       .then((getStatus) => {
-        return resolve(getStatus ? getStatus.view() : null);
+        return resolve(payload);
       })
       .catch(err => reject(err))
   })
