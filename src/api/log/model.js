@@ -24,6 +24,9 @@ const logSchema = new Schema({
   },
   websocket: {
     type: Boolean
+  },
+  updatedByDevice: {
+    type: Boolean
   }
 }, {
   timestamps: true,
@@ -48,6 +51,7 @@ logSchema.methods = {
       waterHeight: this.waterHeight,
       skipCutoff: this.skipCutoff,
       websocket: this.websocket,
+      updatedByDevice: this.updatedByDevice,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };

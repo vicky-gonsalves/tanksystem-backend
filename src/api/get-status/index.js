@@ -7,7 +7,7 @@ import {schema} from './model';
 export GetStatus, {schema} from './model';
 
 const router = new Router();
-const {motor, automate, tankFilled, websocket, waterHeight, skipCutoff} = schema.tree;
+const {motor, automate, tankFilled, websocket, waterHeight, skipCutoff, updatedByDevice} = schema.tree;
 
 /**
  * @api {post} /get-statuses Create get status
@@ -19,7 +19,7 @@ const {motor, automate, tankFilled, websocket, waterHeight, skipCutoff} = schema
  * @apiError 404 Get status not found.
  */
 router.post('/',
-  body({motor, automate, tankFilled, websocket, waterHeight, skipCutoff}),
+  body({motor, automate, tankFilled, websocket, waterHeight, skipCutoff, updatedByDevice}),
   create);
 
 /**
@@ -56,7 +56,7 @@ router.get('/:id',
  * @apiError 404 Get status not found.
  */
 router.put('/:id',
-  body({motor, automate, tankFilled, websocket, waterHeight, skipCutoff}),
+  body({motor, automate, tankFilled, websocket, waterHeight, skipCutoff, updatedByDevice}),
   update);
 
 /**

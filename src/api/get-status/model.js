@@ -29,6 +29,9 @@ export const getStatusSchema = new Schema({
   },
   websocket: {
     type: String
+  },
+  updatedByDevice: {
+    type: Boolean
   }
 }, {
   timestamps: true,
@@ -52,6 +55,7 @@ getStatusSchema.methods = {
       websocket: this.websocket,
       waterHeight: this.waterHeight,
       skipCutoff: this.skipCutoff,
+      updatedByDevice: this.updatedByDevice,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };

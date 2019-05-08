@@ -36,6 +36,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         getStatus.markModified('websocket');
         getStatus.markModified('waterHeight');
         getStatus.markModified('skipCutoff');
+        getStatus.markModified('updatedByDevice');
         Object.assign(getStatus, body).save()
       }
     })
@@ -71,6 +72,7 @@ export const updateStatus = (payload) => {
           getStatus.markModified('websocket');
           getStatus.markModified('waterHeight');
           getStatus.markModified('skipCutoff');
+          getStatus.markModified('updatedByDevice');
           Object.assign(getStatus, payload).save()
         }
       })
