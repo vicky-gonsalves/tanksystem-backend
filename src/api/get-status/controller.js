@@ -73,11 +73,11 @@ export const updateStatus = (payload) => {
           getStatus.markModified('waterHeight');
           getStatus.markModified('skipCutoff');
           getStatus.markModified('updatedByDevice');
-          Object.assign(getStatus, payload).save()
+          return Object.assign(getStatus, payload).save();
         }
       })
       .then((getStatus) => {
-        return resolve(payload);
+        return resolve(getStatus ? getStatus.view() : null);
       })
       .catch(err => reject(err))
   })
