@@ -1,6 +1,9 @@
 import mongoose, {Schema} from 'mongoose';
 
 const logSchema = new Schema({
+  action: {
+    type: String
+  },
   motorOn: {
     type: Boolean
   },
@@ -37,6 +40,7 @@ logSchema.methods = {
     const view = {
       // simple view
       id: this.id,
+      action: this.action,
       motorOn: this.motorOn,
       cutOff: this.cutOff,
       automate: this.automate,

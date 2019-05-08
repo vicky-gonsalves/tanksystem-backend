@@ -7,7 +7,7 @@ import {schema} from './model';
 export Log, {schema} from './model';
 
 const router = new Router();
-const {motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket} = schema.tree;
+const {action, motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket} = schema.tree;
 
 /**
  * @api {post} /logs Create log
@@ -19,7 +19,7 @@ const {motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket
  * @apiError 404 Log not found.
  */
 router.post('/',
-  body({motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket}),
+  body({action, motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket}),
   create);
 
 /**
@@ -56,7 +56,7 @@ router.get('/:id',
  * @apiError 404 Log not found.
  */
 router.put('/:id',
-  body({motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket}),
+  body({action, motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket}),
   update);
 
 /**
