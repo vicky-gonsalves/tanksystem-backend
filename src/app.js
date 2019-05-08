@@ -48,12 +48,24 @@ socketio.use((socket, next) => {
 socketio.on('connection', (socket) => {
   if (socket.id === tankSystemId) {
     updateStatus({websocket: 'connected'}).then((status) => {
-      console.log('Tank Status:Disconnected Updated');
+      console.log('Tank Status:connected Updated');
+      const payload = {
+        action: 'device connected to server',
+        motorOn: status.motor === 'on',
+        automate: status.automate,
+        tankFilled: status.tankFilled,
+        waterHeight: status.waterHeight,
+        websocket: status.websocket === 'connected',
+        updatedByDevice: false
+      };
+      createLog(payload).then(() => {
+        console.log('log saved');
+      });
     });
   }
   if (socket.id === lightSystemId) {
     updateLightStatus({websocket: 'connected'}).then((status) => {
-      console.log('Light Status:Disconnected Updated');
+      console.log('Light Status:connected Updated');
     });
   }
   console.log('Client connected');
@@ -89,6 +101,18 @@ socketio.on('connection', (socket) => {
     if (socket.id === tankSystemId) {
       updateStatus({websocket: 'disconnected'}).then((status) => {
         console.log('Tank Status:Disconnected Updated');
+        const payload = {
+          action: 'device disconnected from server',
+          motorOn: status.motor === 'on',
+          automate: status.automate,
+          tankFilled: status.tankFilled,
+          waterHeight: status.waterHeight,
+          websocket: status.websocket === 'connected',
+          updatedByDevice: false
+        };
+        createLog(payload).then(() => {
+          console.log('log saved');
+        });
       });
     }
     if (socket.id === lightSystemId) {
