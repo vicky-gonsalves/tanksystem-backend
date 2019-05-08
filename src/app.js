@@ -2,6 +2,7 @@ import http from 'http';
 import api from './api';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
+import {createLog} from './api/log/controller';
 import {apiRoot, env, ip, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
@@ -77,6 +78,13 @@ socketio.on('connection', (socket) => {
       console.log('Light Status Updated');
     });
   });
+
+  socket.on('log:save', function(data) {
+    createLog(data).then(() => {
+      console.log('log saved');
+    });
+  });
+
   socket.on('disconnect', () => {
     if (socket.id === tankSystemId) {
       updateStatus({websocket: 'disconnected'}).then((status) => {

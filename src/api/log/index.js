@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
-import { schema } from './model'
-export Log, { schema } from './model'
+import {middleware as body} from 'bodymen';
+import {Router} from 'express';
+import {middleware as query} from 'querymen';
+import {create, destroy, index, show, update} from './controller';
+import {schema} from './model';
 
-const router = new Router()
-const { action } = schema.tree
+export Log, {schema} from './model';
+
+const router = new Router();
+const {motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket} = schema.tree;
 
 /**
  * @api {post} /logs Create log
@@ -18,8 +19,8 @@ const { action } = schema.tree
  * @apiError 404 Log not found.
  */
 router.post('/',
-  body({ action }),
-  create)
+  body({motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket}),
+  create);
 
 /**
  * @api {get} /logs Retrieve logs
@@ -32,7 +33,7 @@ router.post('/',
  */
 router.get('/',
   query(),
-  index)
+  index);
 
 /**
  * @api {get} /logs/:id Retrieve log
@@ -43,7 +44,7 @@ router.get('/',
  * @apiError 404 Log not found.
  */
 router.get('/:id',
-  show)
+  show);
 
 /**
  * @api {put} /logs/:id Update log
@@ -55,8 +56,8 @@ router.get('/:id',
  * @apiError 404 Log not found.
  */
 router.put('/:id',
-  body({ action }),
-  update)
+  body({motorOn, cutOff, automate, tankFilled, waterHeight, skipCutoff, websocket}),
+  update);
 
 /**
  * @api {delete} /logs/:id Delete log
@@ -66,6 +67,6 @@ router.put('/:id',
  * @apiError 404 Log not found.
  */
 router.delete('/:id',
-  destroy)
+  destroy);
 
 export default router
