@@ -27,6 +27,9 @@ export const getStatusSchema = new Schema({
     type: Boolean,
     default: false
   },
+  cutOff: {
+    type: Boolean
+  },
   websocket: {
     type: String
   },
@@ -51,6 +54,7 @@ getStatusSchema.methods = {
       identifier: this.identifier,
       motor: this.motor,
       automate: this.automate,
+      cutOff: this.cutOff,
       tankFilled: this.tankFilled,
       websocket: this.websocket,
       waterHeight: this.waterHeight,

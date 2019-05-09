@@ -32,6 +32,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
       if (getStatus) {
         getStatus.markModified('motor');
         getStatus.markModified('automate');
+        getStatus.markModified('cutOff');
         getStatus.markModified('tankFilled');
         getStatus.markModified('websocket');
         getStatus.markModified('waterHeight');
@@ -68,6 +69,7 @@ export const updateStatus = (payload) => {
         if (getStatus) {
           getStatus.markModified('motor');
           getStatus.markModified('automate');
+          getStatus.markModified('cutOff');
           getStatus.markModified('tankFilled');
           getStatus.markModified('websocket');
           getStatus.markModified('waterHeight');
