@@ -49,18 +49,18 @@ socketio.on('connection', (socket) => {
   if (socket.id === tankSystemId) {
     updateStatus({websocket: 'connected'}).then((status) => {
       console.log('Tank Status:connected Updated');
-      const payload = {
-        action: 'device connected to server',
-        motorOn: status.motor === 'on',
-        automate: status.automate,
-        tankFilled: status.tankFilled,
-        waterHeight: status.waterHeight,
-        websocket: status.websocket === 'connected',
-        updatedByDevice: false
-      };
-      createLog(payload).then(() => {
-        console.log('log saved');
-      });
+      // const payload = {
+      //   action: 'device connected to server',
+      //   motorOn: status.motor === 'on',
+      //   automate: status.automate,
+      //   tankFilled: status.tankFilled,
+      //   waterHeight: status.waterHeight,
+      //   websocket: status.websocket === 'connected',
+      //   updatedByDevice: false
+      // };
+      // createLog(payload).then(() => {
+      //   console.log('log saved');
+      // });
     });
   }
   if (socket.id === lightSystemId) {
