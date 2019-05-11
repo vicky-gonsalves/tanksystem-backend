@@ -1,6 +1,6 @@
 import http from 'http';
 import api from './api';
-import {updateBedroomStatus} from './api/bedroom/controller';
+import {initializeBedroomStatus, updateBedroomStatus} from './api/bedroom/controller';
 import {updateDevLog} from './api/dev/controller';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
