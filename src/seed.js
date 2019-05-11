@@ -16,6 +16,7 @@ if (seedGetStatus) {
         tankFilled: 80,
         waterHeight: 100,
         motor: 'off',
+        devLogs: false,
         websocket: 'disconnected'
       });
     })
