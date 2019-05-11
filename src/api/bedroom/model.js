@@ -6,6 +6,10 @@ export const BedroomEvents = new EventEmitter();
 BedroomEvents.setMaxListeners(0);
 
 const bedroomSchema = new Schema({
+  identifier: {
+    type: String,
+    unique: true
+  },
   light1: {
     type: Boolean
   },
@@ -36,6 +40,7 @@ bedroomSchema.methods = {
     const view = {
       // simple view
       id: this.id,
+      identifier: this.identifier,
       light1: this.light1,
       light2: this.light2,
       light3: this.light3,
