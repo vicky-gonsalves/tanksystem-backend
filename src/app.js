@@ -1,5 +1,6 @@
 import http from 'http';
 import api from './api';
+import {updateDevLog} from './api/dev/controller';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
 import {createLog} from './api/log/controller';
@@ -94,6 +95,11 @@ socketio.on('connection', (socket) => {
   socket.on('log:save', function(data) {
     createLog(data).then(() => {
       console.log('log saved');
+    });
+  });
+  socket.on('dev:put', function(data) {
+    updateDevLog(data).then(() => {
+      console.log('dev log saved');
     });
   });
 

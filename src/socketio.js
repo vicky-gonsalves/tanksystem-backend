@@ -18,6 +18,7 @@ function onConnect(socket) {
   // Insert sockets below
   require('./api/get-status/index.socket').register(socket);
   require('./api/light/index.socket').register(socket);
+  require('./api/dev/index.socket').register(socket);
 
 }
 

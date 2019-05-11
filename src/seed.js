@@ -1,10 +1,12 @@
 "use strict";
 
+import Dev from './api/dev/model';
 import GetStatus from './api/get-status/model';
 import Light from './api/light/model';
 
 const seedGetStatus = true;
 const seedLight = true;
+const seedDev = true;
 
 if (seedGetStatus) {
   GetStatus.find({}).remove()
@@ -38,6 +40,20 @@ if (seedLight) {
     })
     .then(() => {
       console.log('Finished seeding Light');
+    })
+    .catch(e => console.log(e));
+}
+
+if (seedDev) {
+  Dev.find({}).remove()
+    .then(() => {
+      Dev.create({
+        identifier: 'log',
+        distance: 0
+      });
+    })
+    .then(() => {
+      console.log('Finished seeding Dev');
     })
     .catch(e => console.log(e));
 }

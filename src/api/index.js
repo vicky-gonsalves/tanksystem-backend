@@ -3,6 +3,7 @@ import getStatus from './get-status';
 import log from './log';
 import subscribe from './subscribe';
 import light from './light';
+import dev from './dev'
 
 const router = new Router();
 
@@ -10,6 +11,7 @@ router.use('/get-statuses', getStatus);
 router.use('/logs', log);
 router.use('/subscription', subscribe);
 router.use('/lights', light);
+router.use('/dev', dev)
 
 /**
  * @apiDefine master Master access only
