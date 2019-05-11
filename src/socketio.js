@@ -19,6 +19,7 @@ function onConnect(socket) {
   require('./api/get-status/index.socket').register(socket);
   require('./api/light/index.socket').register(socket);
   require('./api/dev/index.socket').register(socket);
+  require('./api/bedroom/index.socket').register(socket);
 
 }
 

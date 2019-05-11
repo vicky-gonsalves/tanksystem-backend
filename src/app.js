@@ -1,5 +1,6 @@
 import http from 'http';
 import api from './api';
+import {updateBedroomStatus} from './api/bedroom/controller';
 import {updateDevLog} from './api/dev/controller';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
@@ -23,6 +24,7 @@ require('./socketio').default(socketio);
 
 let tankSystemId;
 let lightSystemId;
+let bedroomSystemId;
 
 // io.of('/test');
 socketio.use((socket, next) => {
@@ -38,6 +40,10 @@ socketio.use((socket, next) => {
     if (loginInfo[0] === 'light00000000001') {
       tankSystemId = socket.id;
       console.log('Received tank system Id :' + lightSystemId);
+    }
+    if (loginInfo[0] === 'bed00000000001') {
+      bedroomSystemId = socket.id;
+      console.log('Received bedroom system Id :' + bedroomSystemId);
     }
     // if (isValidJwt(header)) {
     //   return next();
@@ -77,6 +83,9 @@ socketio.on('connection', (socket) => {
   initializeLightStatus().then((status) => {
     socket.emit('get-light:init', status)
   });
+  initializeBedroomStatus().then((status) => {
+    socket.emit('bedroom:init', status)
+  });
   socket.on('atime', function(data) {
     sendTime();
     console.log(data);
@@ -89,6 +98,11 @@ socketio.on('connection', (socket) => {
   socket.on('get-light:put', function(data) {
     updateLightStatus(data).then((status) => {
       console.log('Light Status Updated');
+    });
+  });
+  socket.on('bedroom:put', function(data) {
+    updateBedroomStatus(data).then((status) => {
+      console.log('Bedroom Status Updated');
     });
   });
 
@@ -124,6 +138,11 @@ socketio.on('connection', (socket) => {
     if (socket.id === lightSystemId) {
       updateLightStatus({websocket: 'disconnected'}).then((status) => {
         console.log('Light Status:Disconnected Updated');
+      });
+    }
+    if (socket.id === bedroomSystemId) {
+      updateBedroomStatus({websocket: 'disconnected'}).then((status) => {
+        console.log('Bedroom Status:Disconnected Updated');
       });
     }
     console.log('Client disconnected');

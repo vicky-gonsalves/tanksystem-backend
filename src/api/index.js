@@ -4,6 +4,7 @@ import log from './log';
 import subscribe from './subscribe';
 import light from './light';
 import dev from './dev'
+import bedroom from './bedroom'
 
 const router = new Router();
 
@@ -12,6 +13,7 @@ router.use('/logs', log);
 router.use('/subscription', subscribe);
 router.use('/lights', light);
 router.use('/dev', dev)
+router.use('/bedroom', bedroom)
 
 /**
  * @apiDefine master Master access only
