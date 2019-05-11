@@ -75,6 +75,11 @@ socketio.on('connection', (socket) => {
       console.log('Light Status:connected Updated');
     });
   }
+  if (socket.id === bedroomSystemId) {
+    updateBedroomStatus({websocket: 'connected'}).then((status) => {
+      console.log('Bedroom Status:connected Updated');
+    });
+  }
   console.log('Client connected');
   socket.emit('welcome', {message: 'Connected !!!!'});
   initializeStatus().then((status) => {
