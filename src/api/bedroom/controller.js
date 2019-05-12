@@ -26,12 +26,21 @@ export const show = ({params}, res, next) =>
     .catch(next)
 
 export const update = ({bodymen: {body}, params}, res, next) =>
-  Bedroom.findById(params.id)
+  Bedroom.findOne({identifier: params.id})
     .then(notFound(res))
-    .then((bedroom) => bedroom ? Object.assign(bedroom, body).save() : null)
-    .then((bedroom) => bedroom ? bedroom.view(true) : null)
+    .then((getStatus) => {
+      if (getStatus) {
+        getStatus.markModified('light1');
+        getStatus.markModified('light2');
+        getStatus.markModified('light3');
+        getStatus.markModified('fan');
+        getStatus.markModified('websocket');
+        Object.assign(getStatus, body).save()
+      }
+    })
+    .then((getStatus) => getStatus ? getStatus.view(true) : null)
     .then(success(res))
-    .catch(next)
+    .catch(next);
 
 export const destroy = ({params}, res, next) =>
   Bedroom.findById(params.id)
