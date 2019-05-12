@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {Bedroom} from '.'
 import {notFound, success} from '../../services/response/'
 
@@ -35,7 +36,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         getStatus.markModified('light3');
         getStatus.markModified('fan');
         getStatus.markModified('websocket');
-        Object.assign(getStatus, body).save()
+        return _.merge(body, getStatus).save();
       }
     })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
@@ -70,7 +71,7 @@ export const updateBedroomStatus = (payload) => {
           light.markModified('light3');
           light.markModified('fan');
           light.markModified('websocket');
-          Object.assign(light, payload).save()
+          return Object.assign(light, payload).save()
         }
       })
       .then((light) => {
