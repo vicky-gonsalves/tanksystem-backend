@@ -36,7 +36,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         getStatus.markModified('light3');
         getStatus.markModified('fan');
         getStatus.markModified('websocket');
-        return _.merge(body, getStatus).save();
+        return _.merge(getStatus, body).save();
       }
     })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
