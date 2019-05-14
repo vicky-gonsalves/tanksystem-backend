@@ -79,22 +79,22 @@ export const updateBedroomStatus = (payload) => {
     Bedroom.findOne({identifier: 'bedroom1'})
       .then((light) => {
         if (light) {
-          if (body.hasOwnProperty('light1')) {
+          if (light.hasOwnProperty('light1')) {
             light.markModified('light1');
           }
-          if (body.hasOwnProperty('light2')) {
+          if (light.hasOwnProperty('light2')) {
             light.markModified('light2');
           }
-          if (body.hasOwnProperty('light3')) {
+          if (light.hasOwnProperty('light3')) {
             light.markModified('light3');
           }
-          if (body.hasOwnProperty('fan')) {
+          if (light.hasOwnProperty('fan')) {
             light.markModified('fan');
           }
-          if (body.hasOwnProperty('websocket')) {
+          if (light.hasOwnProperty('websocket')) {
             light.markModified('websocket');
           }
-          if (body.hasOwnProperty('updatedByDevice')) {
+          if (light.hasOwnProperty('updatedByDevice')) {
             light.markModified('updatedByDevice');
           }
           return Object.assign(light, payload).save()
