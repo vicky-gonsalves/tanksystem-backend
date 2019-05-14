@@ -14,12 +14,7 @@ if (seedGetStatus) {
   GetStatus.find({}).remove()
     .then(() => {
       GetStatus.create({
-        identifier: 'status',
-        tankFilled: 80,
-        waterHeight: 100,
-        motor: 'off',
-        devLogs: false,
-        websocket: 'disconnected'
+        identifier: 'status'
       });
     })
     .then(() => {
@@ -32,13 +27,7 @@ if (seedLight) {
   Light.find({}).remove()
     .then(() => {
       Light.create({
-        identifier: 'light',
-        light1: false,
-        light2: false,
-        light3: false,
-        light4: false,
-        websocket: 'disconnected',
-        flag: false
+        identifier: 'light'
       });
     })
     .then(() => {
@@ -51,13 +40,7 @@ if (seedBedroom) {
   Bedroom.find({}).remove()
     .then(() => {
       Bedroom.create({
-        identifier: 'bedroom1',
-        light1: false,
-        light2: false,
-        light3: false,
-        fan: false,
-        websocket: 'disconnected',
-        flag: false
+        identifier: 'bedroom1'
       });
     })
     .then(() => {

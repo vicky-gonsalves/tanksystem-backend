@@ -11,22 +11,28 @@ const bedroomSchema = new Schema({
     unique: true
   },
   light1: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   light2: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   light3: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   fan: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   websocket: {
-    type: String
+    type: String,
+    default: 'disconnected'
   },
   updatedByDevice: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true,

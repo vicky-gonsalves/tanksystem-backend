@@ -11,34 +11,40 @@ export const getStatusSchema = new Schema({
     unique: true
   },
   motor: {
-    type: String
+    type: String,
+    default: 'off'
   },
   automate: {
     type: Boolean,
-    default: true
+    default: false
   },
   tankFilled: {
-    type: Number
+    type: Number,
+    default: 0
   },
   waterHeight: {
-    type: Number
+    type: Number,
+    default: 0
   },
   skipCutoff: {
     type: Boolean,
     default: false
   },
   cutOff: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   devLogs: {
     type: Boolean,
     default: false
   },
   websocket: {
-    type: String
+    type: String,
+    default: 'disconnected'
   },
   updatedByDevice: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true,
