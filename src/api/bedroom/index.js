@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
-import { schema } from './model'
-export Bedroom, { schema } from './model'
+import {middleware as body} from 'bodymen'
+import {Router} from 'express'
+import {middleware as query} from 'querymen'
+import {create, destroy, index, show, update} from './controller'
+import {schema} from './model'
+
+export Bedroom, {schema} from './model'
 
 const router = new Router()
-const { light1, light2, light3, fan, websocket } = schema.tree
+const {light1, light2, light3, fan, websocket, updatedByDevice} = schema.tree
 
 /**
  * @api {post} /bedroom Create bedroom
@@ -21,7 +22,7 @@ const { light1, light2, light3, fan, websocket } = schema.tree
  * @apiError 404 Bedroom not found.
  */
 router.post('/',
-  body({ light1, light2, light3, fan, websocket }),
+  body({light1, light2, light3, fan, websocket, updatedByDevice}),
   create)
 
 /**
@@ -61,7 +62,7 @@ router.get('/:id',
  * @apiError 404 Bedroom not found.
  */
 router.put('/:id',
-  body({ light1, light2, light3, fan, websocket }),
+  body({light1, light2, light3, fan, websocket, updatedByDevice}),
   update)
 
 /**

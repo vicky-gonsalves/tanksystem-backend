@@ -46,6 +46,9 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         if (body.hasOwnProperty('websocket')) {
           getStatus.markModified('websocket');
         }
+        if (body.hasOwnProperty('updatedByDevice')) {
+          getStatus.markModified('updatedByDevice');
+        }
         return _.merge(getStatus, body).save();
       }
     })
@@ -76,11 +79,24 @@ export const updateBedroomStatus = (payload) => {
     Bedroom.findOne({identifier: 'bedroom1'})
       .then((light) => {
         if (light) {
-          light.markModified('light1');
-          light.markModified('light2');
-          light.markModified('light3');
-          light.markModified('fan');
-          light.markModified('websocket');
+          if (body.hasOwnProperty('light1')) {
+            light.markModified('light1');
+          }
+          if (body.hasOwnProperty('light2')) {
+            light.markModified('light2');
+          }
+          if (body.hasOwnProperty('light3')) {
+            light.markModified('light3');
+          }
+          if (body.hasOwnProperty('fan')) {
+            light.markModified('fan');
+          }
+          if (body.hasOwnProperty('websocket')) {
+            light.markModified('websocket');
+          }
+          if (body.hasOwnProperty('updatedByDevice')) {
+            light.markModified('updatedByDevice');
+          }
           return Object.assign(light, payload).save()
         }
       })

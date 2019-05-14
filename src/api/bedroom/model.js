@@ -25,6 +25,9 @@ const bedroomSchema = new Schema({
   websocket: {
     type: String
   },
+  updatedByDevice: {
+    type: Boolean
+  }
 }, {
   timestamps: true,
   toJSON: {
@@ -46,6 +49,7 @@ bedroomSchema.methods = {
       light3: this.light3,
       fan: this.fan,
       websocket: this.websocket,
+      updatedByDevice: this.updatedByDevice,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
