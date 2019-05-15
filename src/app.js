@@ -117,9 +117,10 @@ socketio.on('connection', (socket) => {
     });
   });
   socket.on('dev:put', function(data) {
-    updateDevLog(data).then(() => {
-      console.log('dev log saved');
-    });
+    // updateDevLog(data).then(() => {
+    //   console.log('dev log saved');
+    // });
+    socket.emit('dev:save', data);
   });
 
   socket.on('disconnect', () => {
