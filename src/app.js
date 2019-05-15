@@ -1,7 +1,6 @@
 import http from 'http';
 import api from './api';
 import {initializeBedroomStatus, updateBedroomStatus} from './api/bedroom/controller';
-import {updateDevLog} from './api/dev/controller';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
 import {createLog} from './api/log/controller';
@@ -120,8 +119,7 @@ socketio.on('connection', (socket) => {
     // updateDevLog(data).then(() => {
     //   console.log('dev log saved');
     // });
-    console.log(JSON.stringify(data));
-    socket.emit('dev:save', JSON.stringify(data));
+    socketio.sockets.emit('dev:save', data);
   });
 
   socket.on('disconnect', () => {
