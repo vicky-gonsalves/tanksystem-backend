@@ -121,7 +121,7 @@ socketio.on('connection', (socket) => {
     //   console.log('dev log saved');
     // });
     console.log(JSON.stringify(data));
-    socket.emit('dev:save', data);
+    socket.emit('dev:save', JSON.stringify(data));
   });
 
   socket.on('disconnect', () => {
