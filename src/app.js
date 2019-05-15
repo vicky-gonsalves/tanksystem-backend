@@ -120,6 +120,7 @@ socketio.on('connection', (socket) => {
     // updateDevLog(data).then(() => {
     //   console.log('dev log saved');
     // });
+    console.log(data);
     socket.emit('dev:save', data);
   });
 
