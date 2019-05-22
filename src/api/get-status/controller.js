@@ -32,10 +32,12 @@ export const update = ({bodymen: {body}, params}, res, next) =>
       if (getStatus) {
         getStatus.markModified('motor');
         getStatus.markModified('automate');
+        getStatus.markModified('cutOff');
         getStatus.markModified('tankFilled');
         getStatus.markModified('websocket');
         getStatus.markModified('waterHeight');
         getStatus.markModified('skipCutoff');
+        getStatus.markModified('devLogs');
         getStatus.markModified('updatedByDevice');
         Object.assign(getStatus, body).save()
       }
@@ -68,12 +70,14 @@ export const updateStatus = (payload) => {
         if (getStatus) {
           getStatus.markModified('motor');
           getStatus.markModified('automate');
+          getStatus.markModified('cutOff');
           getStatus.markModified('tankFilled');
           getStatus.markModified('websocket');
           getStatus.markModified('waterHeight');
           getStatus.markModified('skipCutoff');
+          getStatus.markModified('devLogs');
           getStatus.markModified('updatedByDevice');
-          Object.assign(getStatus, payload).save()
+          return Object.assign(getStatus, payload).save();
         }
       })
       .then((getStatus) => {

@@ -1,40 +1,28 @@
 import {EventEmitter} from 'events';
 import mongoose, {Schema} from 'mongoose';
 
-export const GetStatusEvents = new EventEmitter();
+export const BedroomEvents = new EventEmitter();
 // Set max event listeners (0 == unlimited)
-GetStatusEvents.setMaxListeners(0);
+BedroomEvents.setMaxListeners(0);
 
-export const getStatusSchema = new Schema({
+const bedroomSchema = new Schema({
   identifier: {
     type: String,
     unique: true
   },
-  motor: {
-    type: String,
-    default: 'off'
-  },
-  automate: {
+  light1: {
     type: Boolean,
     default: false
   },
-  tankFilled: {
-    type: Number,
-    default: 0
-  },
-  waterHeight: {
-    type: Number,
-    default: 0
-  },
-  skipCutoff: {
+  light2: {
     type: Boolean,
     default: false
   },
-  cutOff: {
+  light3: {
     type: Boolean,
     default: false
   },
-  devLogs: {
+  fan: {
     type: Boolean,
     default: false
   },
@@ -54,42 +42,40 @@ export const getStatusSchema = new Schema({
       delete ret._id
     }
   }
-});
+})
 
-getStatusSchema.methods = {
+bedroomSchema.methods = {
   view(full) {
     const view = {
       // simple view
       id: this.id,
       identifier: this.identifier,
-      motor: this.motor,
-      automate: this.automate,
-      cutOff: this.cutOff,
-      tankFilled: this.tankFilled,
+      light1: this.light1,
+      light2: this.light2,
+      light3: this.light3,
+      fan: this.fan,
       websocket: this.websocket,
-      waterHeight: this.waterHeight,
-      devLogs: this.devLogs,
-      skipCutoff: this.skipCutoff,
       updatedByDevice: this.updatedByDevice,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
-    };
+    }
 
     return full ? {
       ...view
       // add properties for a full view
     } : view
   }
-};
+}
 
-getStatusSchema.post('save', function(doc) {
-  GetStatusEvents.emit('save', doc);
+bedroomSchema.post('save', function(doc) {
+  BedroomEvents.emit('save', doc);
 });
-getStatusSchema.post('remove', function(doc) {
-  GetStatusEvents.emit('remove', doc);
+bedroomSchema.post('remove', function(doc) {
+  BedroomEvents.emit('remove', doc);
 });
 
-const model = mongoose.model('GetStatus', getStatusSchema);
 
-export const schema = model.schema;
-export default model;
+const model = mongoose.model('Bedroom', bedroomSchema)
+
+export const schema = model.schema
+export default model

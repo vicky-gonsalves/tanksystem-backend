@@ -1,5 +1,6 @@
 import http from 'http';
 import api from './api';
+import {initializeBedroomStatus, updateBedroomStatus} from './api/bedroom/controller';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
 import {initializeLightStatus, updateLightStatus} from './api/light/controller';
 import {createLog} from './api/log/controller';
@@ -22,6 +23,7 @@ require('./socketio').default(socketio);
 
 let tankSystemId;
 let lightSystemId;
+let bedroomSystemId;
 
 // io.of('/test');
 socketio.use((socket, next) => {
@@ -38,6 +40,10 @@ socketio.use((socket, next) => {
       tankSystemId = socket.id;
       console.log('Received tank system Id :' + lightSystemId);
     }
+    if (loginInfo[0] === 'bed00000000001') {
+      bedroomSystemId = socket.id;
+      console.log('Received bedroom system Id :' + bedroomSystemId);
+    }
     // if (isValidJwt(header)) {
     //   return next();
     // }
@@ -48,12 +54,29 @@ socketio.use((socket, next) => {
 socketio.on('connection', (socket) => {
   if (socket.id === tankSystemId) {
     updateStatus({websocket: 'connected'}).then((status) => {
-      console.log('Tank Status:Disconnected Updated');
+      console.log('Tank Status:connected Updated');
+      // const payload = {
+      //   action: 'device connected to server',
+      //   motorOn: status.motor === 'on',
+      //   automate: status.automate,
+      //   tankFilled: status.tankFilled,
+      //   waterHeight: status.waterHeight,
+      //   websocket: status.websocket === 'connected',
+      //   updatedByDevice: false
+      // };
+      // createLog(payload).then(() => {
+      //   console.log('log saved');
+      // });
     });
   }
   if (socket.id === lightSystemId) {
     updateLightStatus({websocket: 'connected'}).then((status) => {
-      console.log('Light Status:Disconnected Updated');
+      console.log('Light Status:connected Updated');
+    });
+  }
+  if (socket.id === bedroomSystemId) {
+    updateBedroomStatus({websocket: 'connected'}).then((status) => {
+      console.log('Bedroom Status:connected Updated');
     });
   }
   console.log('Client connected');
@@ -63,6 +86,9 @@ socketio.on('connection', (socket) => {
   });
   initializeLightStatus().then((status) => {
     socket.emit('get-light:init', status)
+  });
+  initializeBedroomStatus().then((status) => {
+    socket.emit('bedroom:init', status)
   });
   socket.on('atime', function(data) {
     sendTime();
@@ -78,22 +104,50 @@ socketio.on('connection', (socket) => {
       console.log('Light Status Updated');
     });
   });
+  socket.on('bedroom:put', function(data) {
+    updateBedroomStatus(data).then((status) => {
+      console.log('Bedroom Status Updated');
+    });
+  });
 
   socket.on('log:save', function(data) {
     createLog(data).then(() => {
       console.log('log saved');
     });
   });
+  socket.on('dev:put', function(data) {
+    // updateDevLog(data).then(() => {
+    //   console.log('dev log saved');
+    // });
+    socketio.sockets.emit('dev:save', data);
+  });
 
   socket.on('disconnect', () => {
     if (socket.id === tankSystemId) {
       updateStatus({websocket: 'disconnected'}).then((status) => {
-        console.log('Tank Status:Disconnected Updated');
+        // console.log('Tank Status:Disconnected Updated');
+        // const payload = {
+        //   action: 'device disconnected from server',
+        //   motorOn: status.motor === 'on',
+        //   automate: status.automate,
+        //   tankFilled: status.tankFilled,
+        //   waterHeight: status.waterHeight,
+        //   websocket: status.websocket === 'connected',
+        //   updatedByDevice: false
+        // };
+        // createLog(payload).then(() => {
+        //   console.log('log saved');
+        // });
       });
     }
     if (socket.id === lightSystemId) {
       updateLightStatus({websocket: 'disconnected'}).then((status) => {
         console.log('Light Status:Disconnected Updated');
+      });
+    }
+    if (socket.id === bedroomSystemId) {
+      updateBedroomStatus({websocket: 'disconnected'}).then((status) => {
+        console.log('Bedroom Status:Disconnected Updated');
       });
     }
     console.log('Client disconnected');

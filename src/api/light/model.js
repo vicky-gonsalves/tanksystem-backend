@@ -27,7 +27,8 @@ const lightSchema = new Schema({
     default: false
   },
   websocket: {
-    type: String
+    type: String,
+    default: 'disconnected'
   },
   flag: {
     type: Boolean,
