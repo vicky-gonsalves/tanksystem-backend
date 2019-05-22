@@ -30,16 +30,40 @@ export const update = ({bodymen: {body}, params}, res, next) =>
     .then(notFound(res))
     .then((getStatus) => {
       if (getStatus) {
-        getStatus.markModified('motor');
-        getStatus.markModified('automate');
-        getStatus.markModified('cutOff');
-        getStatus.markModified('tankFilled');
-        getStatus.markModified('websocket');
-        getStatus.markModified('waterHeight');
-        getStatus.markModified('skipCutoff');
-        getStatus.markModified('devLogs');
-        getStatus.markModified('updatedByDevice');
-        Object.assign(getStatus, body).save()
+        if (body.hasOwnProperty('motor')) {
+          getStatus.markModified('motor');
+        }
+        if (body.hasOwnProperty('automate')) {
+          getStatus.markModified('automate');
+        }
+        if (body.hasOwnProperty('cutOff')) {
+          getStatus.markModified('cutOff');
+        }
+        if (body.hasOwnProperty('tankFilled')) {
+          getStatus.markModified('tankFilled');
+        }
+        if (body.hasOwnProperty('websocket')) {
+          getStatus.markModified('websocket');
+        }
+        if (body.hasOwnProperty('waterHeight')) {
+          getStatus.markModified('waterHeight');
+        }
+        if (body.hasOwnProperty('skipCutoff')) {
+          getStatus.markModified('skipCutoff');
+        }
+        if (body.hasOwnProperty('devLogs')) {
+          getStatus.markModified('devLogs');
+        }
+        if (body.hasOwnProperty('flowRate')) {
+          getStatus.markModified('flowRate');
+        }
+        if (body.hasOwnProperty('quantity')) {
+          getStatus.markModified('quantity');
+        }
+        if (body.hasOwnProperty('updatedByDevice')) {
+          getStatus.markModified('updatedByDevice');
+        }
+        return Object.assign(getStatus, body).save();
       }
     })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
@@ -68,15 +92,39 @@ export const updateStatus = (payload) => {
     GetStatus.findOne({identifier: 'status'})
       .then((getStatus) => {
         if (getStatus) {
-          getStatus.markModified('motor');
-          getStatus.markModified('automate');
-          getStatus.markModified('cutOff');
-          getStatus.markModified('tankFilled');
-          getStatus.markModified('websocket');
-          getStatus.markModified('waterHeight');
-          getStatus.markModified('skipCutoff');
-          getStatus.markModified('devLogs');
-          getStatus.markModified('updatedByDevice');
+          if (payload.hasOwnProperty('motor')) {
+            getStatus.markModified('motor');
+          }
+          if (payload.hasOwnProperty('automate')) {
+            getStatus.markModified('automate');
+          }
+          if (payload.hasOwnProperty('cutOff')) {
+            getStatus.markModified('cutOff');
+          }
+          if (payload.hasOwnProperty('tankFilled')) {
+            getStatus.markModified('tankFilled');
+          }
+          if (payload.hasOwnProperty('websocket')) {
+            getStatus.markModified('websocket');
+          }
+          if (payload.hasOwnProperty('waterHeight')) {
+            getStatus.markModified('waterHeight');
+          }
+          if (payload.hasOwnProperty('skipCutoff')) {
+            getStatus.markModified('skipCutoff');
+          }
+          if (payload.hasOwnProperty('devLogs')) {
+            getStatus.markModified('devLogs');
+          }
+          if (payload.hasOwnProperty('flowRate')) {
+            getStatus.markModified('flowRate');
+          }
+          if (payload.hasOwnProperty('quantity')) {
+            getStatus.markModified('quantity');
+          }
+          if (payload.hasOwnProperty('updatedByDevice')) {
+            getStatus.markModified('updatedByDevice');
+          }
           return Object.assign(getStatus, payload).save();
         }
       })

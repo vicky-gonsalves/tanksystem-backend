@@ -34,6 +34,14 @@ export const getStatusSchema = new Schema({
     type: Boolean,
     default: false
   },
+  flowRate: {
+    type: Number,
+    default: 0
+  },
+  quantity: {
+    type: Number,
+    default: 0
+  },
   devLogs: {
     type: Boolean,
     default: false
@@ -68,6 +76,8 @@ getStatusSchema.methods = {
       tankFilled: this.tankFilled,
       websocket: this.websocket,
       waterHeight: this.waterHeight,
+      flowRate: this.flowRate,
+      quantity: this.quantity,
       devLogs: this.devLogs,
       skipCutoff: this.skipCutoff,
       updatedByDevice: this.updatedByDevice,

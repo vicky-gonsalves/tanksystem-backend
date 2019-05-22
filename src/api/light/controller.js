@@ -28,7 +28,26 @@ export const show = ({params}, res, next) =>
 export const update = ({bodymen: {body}, params}, res, next) =>
   Light.findById(params.id)
     .then(notFound(res))
-    .then((light) => light ? Object.assign(light, body).save() : null)
+    .then((light) => {
+      if (light) {
+        if (body.hasOwnProperty('light1')) {
+          light.markModified('light1');
+        }
+        if (body.hasOwnProperty('light2')) {
+          light.markModified('light2');
+        }
+        if (body.hasOwnProperty('light3')) {
+          light.markModified('light3');
+        }
+        if (body.hasOwnProperty('light4')) {
+          light.markModified('light4');
+        }
+        if (body.hasOwnProperty('websocket')) {
+          light.markModified('websocket');
+        }
+        return Object.assign(light, body).save();
+      }
+    })
     .then((light) => light ? light.view(true) : null)
     .then(success(res))
     .catch(next);
@@ -55,12 +74,22 @@ export const updateLightStatus = (payload) => {
     Light.findOne({identifier: 'light'})
       .then((light) => {
         if (light) {
-          light.markModified('light1');
-          light.markModified('light2');
-          light.markModified('light3');
-          light.markModified('light4');
-          light.markModified('websocket');
-          Object.assign(light, payload).save()
+          if (payload.hasOwnProperty('light1')) {
+            light.markModified('light1');
+          }
+          if (payload.hasOwnProperty('light2')) {
+            light.markModified('light2');
+          }
+          if (payload.hasOwnProperty('light3')) {
+            light.markModified('light3');
+          }
+          if (payload.hasOwnProperty('light4')) {
+            light.markModified('light4');
+          }
+          if (payload.hasOwnProperty('websocket')) {
+            light.markModified('websocket');
+          }
+          return Object.assign(light, payload).save()
         }
       })
       .then((light) => {

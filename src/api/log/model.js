@@ -22,6 +22,14 @@ const logSchema = new Schema({
   skipCutoff: {
     type: Boolean
   },
+  flowRate: {
+    type: Number,
+    default: 0
+  },
+  quantity: {
+    type: Number,
+    default: 0
+  },
   websocket: {
     type: Boolean
   },
@@ -50,6 +58,8 @@ logSchema.methods = {
       tankFilled: this.tankFilled,
       waterHeight: this.waterHeight,
       skipCutoff: this.skipCutoff,
+      flowRate: this.flowRate,
+      quantity: this.quantity,
       websocket: this.websocket,
       updatedByDevice: this.updatedByDevice,
       createdAt: this.createdAt,
