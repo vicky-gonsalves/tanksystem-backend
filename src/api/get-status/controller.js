@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import {GetStatus} from '.';
 import {notFound, success} from '../../services/response/';
 
@@ -38,6 +39,10 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         }
         if (body.hasOwnProperty('cutOff')) {
           getStatus.markModified('cutOff');
+        }
+        if (body.hasOwnProperty('cutOffAt') && body.cutOffAt) {
+          body.cutOffAt = moment();
+          getStatus.markModified('cutOffAt');
         }
         if (body.hasOwnProperty('tankFilled')) {
           getStatus.markModified('tankFilled');
@@ -100,6 +105,10 @@ export const updateStatus = (payload) => {
           }
           if (payload.hasOwnProperty('cutOff')) {
             getStatus.markModified('cutOff');
+          }
+          if (payload.hasOwnProperty('cutOffAt') && payload.cutOffAt) {
+            payload.cutOffAt = moment();
+            getStatus.markModified('cutOffAt');
           }
           if (payload.hasOwnProperty('tankFilled')) {
             getStatus.markModified('tankFilled');

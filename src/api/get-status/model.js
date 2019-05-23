@@ -34,6 +34,9 @@ export const getStatusSchema = new Schema({
     type: Boolean,
     default: false
   },
+  cutOffAt: {
+    type: Date
+  },
   flowRate: {
     type: Number,
     default: 0
@@ -73,6 +76,7 @@ getStatusSchema.methods = {
       motor: this.motor,
       automate: this.automate,
       cutOff: this.cutOff,
+      cutOffAt: this.cutOffAt,
       tankFilled: this.tankFilled,
       websocket: this.websocket,
       waterHeight: this.waterHeight,

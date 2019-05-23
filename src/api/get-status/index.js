@@ -7,7 +7,7 @@ import {schema} from './model';
 export GetStatus, {schema} from './model';
 
 const router = new Router();
-const {motor, automate, tankFilled, websocket, cutOff, waterHeight, skipCutoff, updatedByDevice, devLogs, quantity, flowRate} = schema.tree;
+const {motor, automate, tankFilled, websocket, cutOff, cutOffAt, waterHeight, skipCutoff, updatedByDevice, devLogs, quantity, flowRate} = schema.tree;
 
 /**
  * @api {post} /get-statuses Create get status
@@ -19,7 +19,20 @@ const {motor, automate, tankFilled, websocket, cutOff, waterHeight, skipCutoff, 
  * @apiError 404 Get status not found.
  */
 router.post('/',
-  body({motor, automate, tankFilled, websocket, cutOff, waterHeight, skipCutoff, updatedByDevice, devLogs, quantity, flowRate}),
+  body({
+    motor,
+    automate,
+    tankFilled,
+    websocket,
+    cutOff,
+    cutOffAt: {type: Boolean},
+    waterHeight,
+    skipCutoff,
+    updatedByDevice,
+    devLogs,
+    quantity,
+    flowRate
+  }),
   create);
 
 /**
@@ -56,7 +69,20 @@ router.get('/:id',
  * @apiError 404 Get status not found.
  */
 router.put('/:id',
-  body({motor, automate, tankFilled, websocket, cutOff, waterHeight, skipCutoff, updatedByDevice, devLogs, quantity, flowRate}),
+  body({
+    motor,
+    automate,
+    tankFilled,
+    websocket,
+    cutOff,
+    cutOffAt: {type: Boolean},
+    waterHeight,
+    skipCutoff,
+    updatedByDevice,
+    devLogs,
+    quantity,
+    flowRate
+  }),
   update);
 
 /**
