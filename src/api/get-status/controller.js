@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import {GetStatus} from '.';
 import {notFound, success} from '../../services/response/';
 
