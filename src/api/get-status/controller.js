@@ -40,7 +40,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         if (body.hasOwnProperty('cutOff')) {
           getStatus.markModified('cutOff');
         }
-        if (body.hasOwnProperty('cutOffAt') && body.cutOffAt) {
+        if (body.hasOwnProperty('cutOffAt')) {
           body.cutOffAt = moment();
           getStatus.markModified('cutOffAt');
         }
@@ -106,7 +106,7 @@ export const updateStatus = (payload) => {
           if (payload.hasOwnProperty('cutOff')) {
             getStatus.markModified('cutOff');
           }
-          if (payload.hasOwnProperty('cutOffAt') && payload.cutOffAt) {
+          if (payload.hasOwnProperty('cutOffAt')) {
             payload.cutOffAt = moment();
             getStatus.markModified('cutOffAt');
           }
