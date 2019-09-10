@@ -1,4 +1,5 @@
 import http from 'http';
+import {ping} from 'periodic-ping';
 import api from './api';
 import {initializeBedroomStatus, updateBedroomStatus} from './api/bedroom/controller';
 import {initializeStatus, updateStatus} from './api/get-status/controller';
@@ -176,3 +177,22 @@ export default app;
 function sendTime() {
   socketio.sockets.emit('atime', {time: new Date().toJSON()});
 }
+
+const myPingConfig = {
+  appName: "tanksystem-ui",
+  wakeTime: 7,
+  wakeAm: true,
+  sleepTime: 1,
+  sleepAm: false
+};
+
+const myPingConfig2 = {
+  appName: "tanksystem",
+  wakeTime: 7,
+  wakeAm: true,
+  sleepTime: 1,
+  sleepAm: false
+};
+
+ping(myPingConfig);
+ping(myPingConfig2);
