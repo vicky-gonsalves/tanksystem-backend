@@ -7,7 +7,7 @@ import {schema} from './model';
 export GetStatus, {schema} from './model';
 
 const router = new Router();
-const {motor, automate, tankFilled, websocket, cutOff, cutOffAt, waterHeight, skipCutoff, updatedByDevice, devLogs, quantity, flowRate} = schema.tree;
+const {motor, automate, tankFilled, websocket, cutOff, cutOffAt, waterHeight, skipCutoff, updatedByDevice, devLogs, maxMotorOnTime, quantity, flowRate} = schema.tree;
 
 /**
  * @api {post} /get-statuses Create get status
@@ -31,6 +31,7 @@ router.post('/',
     updatedByDevice,
     devLogs,
     quantity,
+    maxMotorOnTime,
     flowRate
   }),
   create);
@@ -81,6 +82,7 @@ router.put('/:id',
     updatedByDevice,
     devLogs,
     quantity,
+    maxMotorOnTime,
     flowRate
   }),
   update);

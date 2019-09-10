@@ -45,6 +45,10 @@ export const getStatusSchema = new Schema({
     type: Number,
     default: 0
   },
+  maxMotorOnTime: {
+    type: Number,
+    default: 30
+  },
   devLogs: {
     type: Boolean,
     default: false
@@ -84,6 +88,7 @@ getStatusSchema.methods = {
       quantity: this.quantity,
       devLogs: this.devLogs,
       skipCutoff: this.skipCutoff,
+      maxMotorOnTime: this.maxMotorOnTime,
       updatedByDevice: this.updatedByDevice,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
