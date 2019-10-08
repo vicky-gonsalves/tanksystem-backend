@@ -65,6 +65,9 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         if (body.hasOwnProperty('maxMotorOnTime')) {
           getStatus.markModified('maxMotorOnTime');
         }
+        if (body.hasOwnProperty('minMotorOnPercentage')) {
+          getStatus.markModified('minMotorOnPercentage');
+        }
         if (body.hasOwnProperty('quantity')) {
           getStatus.markModified('quantity');
         }
@@ -133,6 +136,9 @@ export const updateStatus = (payload) => {
           }
           if (payload.hasOwnProperty('maxMotorOnTime')) {
             getStatus.markModified('maxMotorOnTime');
+          }
+          if (payload.hasOwnProperty('minMotorOnPercentage')) {
+            getStatus.markModified('minMotorOnPercentage');
           }
           if (payload.hasOwnProperty('quantity')) {
             getStatus.markModified('quantity');
