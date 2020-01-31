@@ -26,7 +26,7 @@ export const show = ({params}, res, next) =>
     .catch(next);
 
 export const update = ({bodymen: {body}, params}, res, next) =>
-  Light.findById(params.id)
+  Light.findOne({identifier: 'light'})
     .then(notFound(res))
     .then((light) => {
       if (light) {
