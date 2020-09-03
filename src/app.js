@@ -155,7 +155,7 @@ socketio.on('connection', (socket) => {
   });
 });
 
-mongoose.connect(mongo.uri, {useMongoClient: true});
+mongoose.connect(mongo.uri, {useNewUrlParser: true});
 mongoose.Promise = Promise;
 
 // Populate databases with sample data
