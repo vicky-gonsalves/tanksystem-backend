@@ -63,7 +63,7 @@ const config = {
         debug: true
       }
     },
-    seedDB: true,
+    seedDB: false,
     secureport: process.env.SECUREPORT || undefined,
   }
 }
