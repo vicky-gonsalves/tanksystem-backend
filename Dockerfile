@@ -10,6 +10,6 @@ RUN npm install --pure-lockfile
 
 COPY . .
 
-RUN npm run prod
+RUN npm run start
 
 EXPOSE 9000

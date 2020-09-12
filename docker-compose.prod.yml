@@ -3,4 +3,4 @@ version: '3'
 services:
   tanksystem-api:
     container_name: tanksystem-api-prod
-    command: npm run prod
+    command: npm run start
