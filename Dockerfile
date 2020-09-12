@@ -6,7 +6,7 @@ WORKDIR /usr/src/tanksystem-api
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install --pure-lockfile
 
 COPY . .
 
