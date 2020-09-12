@@ -55,7 +55,7 @@
     "express": "^4.17.1",
     "express-force-ssl": "^0.3.2",
     "moment": "^2.27.0",
-    "mongoose": "^5.10.2",
+    "mongoose": "^5.10.5",
     "mongoose-create-unique": "^0.4.4",
     "mongoose-keywords": "^0.3.2",
     "morgan": "^1.10.0",
