@@ -4,7 +4,7 @@
   "main": "src",
   "private": true,
   "scripts": {
-    "start": "node .",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
     "test": "jest",
     "test:unit": "npm test \"src/**/!(index).test.js\"",
     "test:integration": "npm test \"src/**/index.test.js\"",
@@ -63,6 +63,7 @@
     "mongoose-keywords": "^0.3.2",
     "morgan": "^1.10.0",
     "periodic-ping": "^2.0.0",
+    "pm2": "^4.4.1",
     "querymen": "^2.1.4",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",

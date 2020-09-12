@@ -155,7 +155,7 @@ socketio.on('connection', (socket) => {
   });
 });
 
-mongoose.connect(mongo.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongo.uri, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 // Populate databases with sample data
