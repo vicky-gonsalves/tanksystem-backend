@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
+import dotenv from 'dotenv';
 import path from 'path'
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 /* istanbul ignore next */
 const requireProcessEnv = (name) => {
@@ -10,13 +12,12 @@ const requireProcessEnv = (name) => {
 }
 
 /* istanbul ignore next */
-if (process.env.NODE_ENV !== 'production') {
-  const dotenv = require('dotenv-safe')
-  dotenv.load({
-    path: path.join(__dirname, '../.env'),
-    sample: path.join(__dirname, '../.env.example')
-  })
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   dotenv.load({
+//     path: path.join(__dirname, '../.env'),
+//     sample: path.join(__dirname, '../.env.example')
+//   })
+// }
 
 const config = {
   all: {
