@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  tanksystem-api:
+    build: .
+    image: tanksystem-api
+    ports:
+      - '9000:9000'

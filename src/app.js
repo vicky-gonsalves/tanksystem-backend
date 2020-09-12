@@ -1,11 +1,11 @@
 import http from 'http';
-import {ping} from 'periodic-ping';
+import { ping } from 'periodic-ping';
 import api from './api';
-import {initializeBedroomStatus, updateBedroomStatus} from './api/bedroom/controller';
-import {initializeStatus, updateStatus} from './api/get-status/controller';
-import {initializeLightStatus, updateLightStatus} from './api/light/controller';
-import {createLog} from './api/log/controller';
-import {apiRoot, env, ip, mongo, port, seedDB} from './config';
+import { initializeBedroomStatus, updateBedroomStatus } from './api/bedroom/controller';
+import { initializeStatus, updateStatus } from './api/get-status/controller';
+import { initializeLightStatus, updateLightStatus } from './api/light/controller';
+import { createLog } from './api/log/controller';
+import { apiRoot, env, ip, mongo, port, seedDB } from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
 
@@ -54,7 +54,7 @@ socketio.use((socket, next) => {
 });
 socketio.on('connection', (socket) => {
   if (socket.id === tankSystemId) {
-    updateStatus({websocket: 'connected'}).then((status) => {
+    updateStatus({ websocket: 'connected' }).then((status) => {
       console.log('Tank Status:connected Updated');
       // const payload = {
       //   action: 'device connected to server',
@@ -71,17 +71,17 @@ socketio.on('connection', (socket) => {
     });
   }
   if (socket.id === lightSystemId) {
-    updateLightStatus({websocket: 'connected'}).then((status) => {
+    updateLightStatus({ websocket: 'connected' }).then((status) => {
       console.log('Light Status:connected Updated');
     });
   }
   if (socket.id === bedroomSystemId) {
-    updateBedroomStatus({websocket: 'connected'}).then((status) => {
+    updateBedroomStatus({ websocket: 'connected' }).then((status) => {
       console.log('Bedroom Status:connected Updated');
     });
   }
   console.log('Client connected');
-  socket.emit('welcome', {message: 'Connected !!!!'});
+  socket.emit('welcome', { message: 'Connected !!!!' });
   initializeStatus().then((status) => {
     socket.emit('get-status:init', status)
   });
@@ -125,7 +125,7 @@ socketio.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     if (socket.id === tankSystemId) {
-      updateStatus({websocket: 'disconnected'}).then((status) => {
+      updateStatus({ websocket: 'disconnected' }).then((status) => {
         // console.log('Tank Status:Disconnected Updated');
         // const payload = {
         //   action: 'device disconnected from server',
@@ -142,12 +142,12 @@ socketio.on('connection', (socket) => {
       });
     }
     if (socket.id === lightSystemId) {
-      updateLightStatus({websocket: 'disconnected'}).then((status) => {
+      updateLightStatus({ websocket: 'disconnected' }).then((status) => {
         console.log('Light Status:Disconnected Updated');
       });
     }
     if (socket.id === bedroomSystemId) {
-      updateBedroomStatus({websocket: 'disconnected'}).then((status) => {
+      updateBedroomStatus({ websocket: 'disconnected' }).then((status) => {
         console.log('Bedroom Status:Disconnected Updated');
       });
     }
@@ -155,7 +155,7 @@ socketio.on('connection', (socket) => {
   });
 });
 
-mongoose.connect(mongo.uri, {useNewUrlParser: true});
+mongoose.connect(mongo.uri, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
 // Populate databases with sample data
@@ -175,7 +175,7 @@ export default app;
 
 
 function sendTime() {
-  socketio.sockets.emit('atime', {time: new Date().toJSON()});
+  socketio.sockets.emit('atime', { time: new Date().toJSON() });
 }
 
 const myPingConfig = {

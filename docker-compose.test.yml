@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  tanksystem-api:
+    container_name: tanksystem-api-test
+    command: npm run test
