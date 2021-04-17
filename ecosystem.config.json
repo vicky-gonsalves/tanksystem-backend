@@ -6,7 +6,9 @@
       "instances": 1,
       "autorestart": true,
       "watch": false,
-      "time": true
+      "time": true,
+      "max_memory_restart":"50M",
+      "error_file": "/dev/null",
     }
   ]
 }
