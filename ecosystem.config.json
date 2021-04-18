@@ -7,7 +7,6 @@
       "autorestart": true,
       "watch": false,
       "time": true,
-      "max_memory_restart":"50M",
       "error_file": "/dev/null"
     }
   ]
