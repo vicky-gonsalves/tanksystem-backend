@@ -1,7 +1,7 @@
 import {middleware as body} from 'bodymen'
 import {Router} from 'express'
 import {middleware as query} from 'querymen'
-import {create, destroy, index, show, update} from './controller'
+import {create, destroy, index, show, state, update} from './controller'
 import {schema} from './model'
 
 export Light, {schema} from './model'
@@ -48,6 +48,17 @@ router.get('/',
  */
 router.get('/:id',
   show);
+
+/**
+ * @api {get} /lights/:id/state Retrieve light
+ * @apiName RetrieveLightState
+ * @apiGroup Light
+ * @apiSuccess {Object} light Light's data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 Light not found.
+ */
+router.get('/:id/state',
+  state);
 
 /**
  * @api {put} /lights/:id Update light

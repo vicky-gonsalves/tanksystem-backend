@@ -25,6 +25,12 @@ export const show = ({params}, res, next) =>
     .then(success(res))
     .catch(next);
 
+export const state = ({params}, res, next) =>
+  Light.findOne({id: params.id, $or:[{light1:true},{light2:true},{light3:true},{light4:true}]})
+    .then((light) => light ? 'ON' : 'OFF')
+    .then(success(res))
+    .catch(next);
+
 export const update = ({bodymen: {body}, params}, res, next) =>
   Light.findOne({identifier: 'light'})
     .then(notFound(res))
