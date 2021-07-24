@@ -5,6 +5,13 @@ export const success = (res, status) => (entity) => {
   return null
 }
 
+export const customSuccess = (res, status) => (entity) => {
+  if (entity) {
+    res.status(status || 200).send(entity)
+  }
+  return null
+}
+
 export const notFound = (res) => (entity) => {
   if (entity) {
     return entity

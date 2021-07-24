@@ -1,5 +1,5 @@
 import {Light} from '.';
-import {notFound, success} from '../../services/response/';
+import {customSuccess, notFound, success} from '../../services/response/';
 
 export const create = ({bodymen: {body}}, res, next) =>
   Light.create(body)
@@ -27,9 +27,8 @@ export const show = ({params}, res, next) =>
 
 export const state = (res, next) =>
   Light.findOne({$or: [{light1: true}, {light2: true}, {light3: true}, {light4: true}]})
-    .then((state) => {
-      return res.send(state ? 'ON' : 'OFF');
-    })
+    .then((light) => light ? 'ON' : 'OFF')
+    .then(customSuccess(res))
     .catch(next);
 
 export const update = ({bodymen: {body}, params}, res, next) =>
