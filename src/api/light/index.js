@@ -50,14 +50,14 @@ router.get('/:id',
   show);
 
 /**
- * @api {get} /lights/:id/state Retrieve light
+ * @api {get} /lights/get-all-lights/state Retrieve light
  * @apiName RetrieveLightState
  * @apiGroup Light
  * @apiSuccess {Object} light Light's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Light not found.
  */
-router.get('/:id/state',
+router.get('/get-all-lights/state',
   state);
 
 /**
