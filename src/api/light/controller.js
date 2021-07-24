@@ -26,7 +26,7 @@ export const show = ({params}, res, next) =>
     .catch(next);
 
 export const state = ({params}, res, next) =>
-  Light.findOne({id: params.id, $or:[{light1:true},{light2:true},{light3:true},{light4:true}]})
+  Light.findOne({$or: [{light1: true}, {light2: true}, {light3: true}, {light4: true}]})
     .then((light) => light ? 'ON' : 'OFF')
     .then(success(res))
     .catch(next);
@@ -66,7 +66,7 @@ export const destroy = ({params}, res, next) =>
     .catch(next);
 
 export const initializeLightStatus = () => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     Light.findOne({identifier: 'light'})
       .then((light) => {
         return resolve(light ? light.view() : null);
@@ -76,7 +76,7 @@ export const initializeLightStatus = () => {
 };
 
 export const updateLightStatus = (payload) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     Light.findOne({identifier: 'light'})
       .then((light) => {
         if (light) {
