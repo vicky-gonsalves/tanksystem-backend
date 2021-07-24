@@ -27,9 +27,8 @@ export const show = ({params}, res, next) =>
 
 export const state = (res, next) =>
   Light.findOne({$or: [{light1: true}, {light2: true}, {light3: true}, {light4: true}]})
-    .then((light) => light ? 'ON' : 'OFF')
     .then((state)=>{
-      return res.status(200).send(state);
+      return res.status(200).send(state?'ON':'OFF');
     })
     .catch(next);
 
