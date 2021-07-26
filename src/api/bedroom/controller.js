@@ -108,7 +108,7 @@ export const updateBedroomStatus = (payload) => {
   })
 };
 
-export const wakePC = (res, next) => {
+export const wakePC = ({params}, res, next) => {
   console.log('Waking up PC:');
   wol.wake('08:62:66:9E:B2:90', (err, done) => {
     return res.send('PC turned ON');
