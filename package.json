@@ -57,7 +57,7 @@
     "express": "^4.17.1",
     "express-force-ssl": "^0.3.2",
     "moment": "^2.27.0",
-    "mongoose": "^5.10.5",
+    "mongoose": "^5.13.3",
     "mongoose-create-unique": "^0.4.4",
     "mongoose-keywords": "^0.3.2",
     "morgan": "^1.10.0",
@@ -66,8 +66,9 @@
     "querymen": "^2.1.4",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.1",
     "socket.io-client": "^2.3.0",
-    "web-push": "^3.4.4"
+    "web-push": "^3.4.4",
+    "wol": "^1.0.7"
   }
 }

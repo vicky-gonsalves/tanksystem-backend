@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import {Bedroom} from '.'
 import {notFound, success} from '../../services/response/'
+import * as wol from 'wol';
 
 export const create = ({bodymen: {body}}, res, next) =>
   Bedroom.create(body)
@@ -65,7 +66,7 @@ export const destroy = ({params}, res, next) =>
 
 
 export const initializeBedroomStatus = () => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     Bedroom.findOne({identifier: 'bedroom1'})
       .then((light) => {
         return resolve(light ? light.view() : null);
@@ -75,7 +76,7 @@ export const initializeBedroomStatus = () => {
 };
 
 export const updateBedroomStatus = (payload) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     Bedroom.findOne({identifier: 'bedroom1'})
       .then((light) => {
         if (light) {
@@ -105,4 +106,11 @@ export const updateBedroomStatus = (payload) => {
       })
       .catch(err => reject(err))
   })
+};
+
+export const wakePC = () => {
+  console.log('Waking up PC:');
+  wol.wake('08:62:66:9E:B2:90', (err, res) => {
+    console.log(res);
+  });
 };

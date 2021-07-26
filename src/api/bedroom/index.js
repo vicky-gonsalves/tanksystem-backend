@@ -1,7 +1,7 @@
 import {middleware as body} from 'bodymen'
 import {Router} from 'express'
 import {middleware as query} from 'querymen'
-import {create, destroy, index, show, update} from './controller'
+import {create, destroy, index, show, update, wakePC} from './controller'
 import {schema} from './model'
 
 export Bedroom, {schema} from './model'
@@ -64,6 +64,17 @@ router.get('/:id',
 router.put('/:id',
   body({light1, light2, light3, fan, websocket, updatedByDevice}),
   update)
+
+/**
+ * @api {put} /bedroom/pc/turnon Update bedroom
+ * @apiName UpdateBedroomPCStatus
+ * @apiGroup Bedroom
+ * @apiSuccess {Object} bedroom Bedroom's data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 Bedroom not found.
+ */
+router.put('/pc/turnon',
+  wakePC)
 
 /**
  * @api {delete} /bedroom/:id Delete bedroom
