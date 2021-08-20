@@ -27,6 +27,7 @@ const config = {
     ip: process.env.IP || '0.0.0.0',
     apiRoot: process.env.API_ROOT || '/api',
     masterKey: requireProcessEnv('MASTER_KEY'),
+    isRaspberryPi: process.env.RASPBERRY_PI_SERVER==='true' || false,
     mongo: {
       options: {
         db: {

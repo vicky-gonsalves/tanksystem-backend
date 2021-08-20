@@ -1,11 +1,11 @@
 import http from 'http';
-import { ping } from 'periodic-ping';
+import * as PiTemp from 'pi-temperature';
 import api from './api';
-import { initializeBedroomStatus, updateBedroomStatus } from './api/bedroom/controller';
-import { initializeStatus, updateStatus } from './api/get-status/controller';
-import { initializeLightStatus, updateLightStatus } from './api/light/controller';
-import { createLog } from './api/log/controller';
-import { apiRoot, env, ip, mongo, port, seedDB } from './config';
+import {initializeBedroomStatus, updateBedroomStatus} from './api/bedroom/controller';
+import {initializeStatus, updateStatus} from './api/get-status/controller';
+import {initializeLightStatus, updateLightStatus} from './api/light/controller';
+import {createLog} from './api/log/controller';
+import {apiRoot, env, ip, mongo, port, seedDB, isRaspberryPi} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
 
@@ -96,7 +96,13 @@ socketio.on('connection', (socket) => {
       console.log('log saved');
     });
   });
-  socket.on('dev:put', function(data) {
+  socket.on('dev:put', function (data) {
+    if(isRaspberryPi) {
+      PiTemp.measure(function (err, temp) {
+        if (err) console.error(err);
+        else data.temp = temp;
+      });
+    }
     socketio.sockets.emit('dev:save', data);
   });
 
