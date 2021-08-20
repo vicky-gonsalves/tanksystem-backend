@@ -101,9 +101,11 @@ socketio.on('connection', (socket) => {
     if (isRaspberryPi) {
       Raspiinfo.temp(function (temp) {
         data.temp = temp;
+        socketio.sockets.emit('dev:save', data);
       });
+    } else {
+      socketio.sockets.emit('dev:save', data);
     }
-    socketio.sockets.emit('dev:save', data);
   });
 
   socket.on('disconnect', () => {
