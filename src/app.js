@@ -97,15 +97,18 @@ socketio.on('connection', (socket) => {
     });
   });
 
+  let rep = 0;
+  let temperature = 0;
   socket.on('dev:put', function (data) {
-    if (isRaspberryPi) {
+    rep++;
+    if (rep >= 1000 && isRaspberryPi) {
       Raspiinfo.temp(function (temp) {
-        data.temp = temp;
-        socketio.sockets.emit('dev:save', data);
+        temperature = temp;
       });
-    } else {
-      socketio.sockets.emit('dev:save', data);
+      rep = 0;
     }
+    data.temp = temperature;
+    socketio.sockets.emit('dev:save', data);
   });
 
   socket.on('disconnect', () => {
