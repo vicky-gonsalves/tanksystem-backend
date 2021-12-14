@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {Bedroom} from '.'
 import {notFound, success} from '../../services/response/'
 import * as wol from 'wol';
@@ -34,23 +33,29 @@ export const update = ({bodymen: {body}, params}, res, next) =>
       if (getStatus) {
         if (body.hasOwnProperty('light1')) {
           getStatus.markModified('light1');
+          getStatus.light1 = body.light1;
         }
         if (body.hasOwnProperty('light2')) {
           getStatus.markModified('light2');
+          getStatus.light2 = body.light2;
         }
         if (body.hasOwnProperty('light3')) {
           getStatus.markModified('light3');
+          getStatus.light3 = body.light3;
         }
         if (body.hasOwnProperty('fan')) {
           getStatus.markModified('fan');
+          getStatus.fan = body.fan;
         }
         if (body.hasOwnProperty('websocket')) {
           getStatus.markModified('websocket');
+          getStatus.websocket = body.websocket;
         }
         if (body.hasOwnProperty('updatedByDevice')) {
           getStatus.markModified('updatedByDevice');
+          getStatus.updatedByDevice = body.updatedByDevice;
         }
-        return Object.assign(getStatus, body).save();
+        return getStatus.save();
       }
     })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
