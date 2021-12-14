@@ -50,7 +50,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         if (body.hasOwnProperty('updatedByDevice')) {
           getStatus.markModified('updatedByDevice');
         }
-        return _.merge(getStatus, body).save();
+        return Object.assign(getStatus, body).save();
       }
     })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
@@ -98,7 +98,7 @@ export const updateBedroomStatus = (payload) => {
           if (light.hasOwnProperty('updatedByDevice')) {
             light.markModified('updatedByDevice');
           }
-          return Object.assign(light, payload).save()
+          return Object.assign(light, payload).save();
         }
       })
       .then((light) => {
