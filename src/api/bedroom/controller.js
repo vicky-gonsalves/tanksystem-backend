@@ -28,9 +28,13 @@ export const show = ({params}, res, next) =>
     .catch(next)
 
 export const update = ({bodymen: {body}, params}, res, next) =>
-  Bedroom.updateOne({identifier: params.id}, {$set: body})
-    // .then(notFound(res))
-    // .then((plug) => plug ? Object.assign(plug, body).save() : null)
+  Bedroom.findOneAndUpdate({identifier: params.id}, body)
+    .then(notFound(res))
+    .then((plug) => {
+      if (plug) {
+        return plug.save();
+      }
+    })
     .then((plug) => plug ? plug.view(true) : null)
     .then(success(res))
     .catch(next);
