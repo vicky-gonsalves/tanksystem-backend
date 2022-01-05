@@ -50,7 +50,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         // if (body.hasOwnProperty('updatedByDevice')) {
         //   getStatus.markModified('updatedByDevice');
         // }
-        return Object.assign(getStatus, body).save();
+        return Object.assign(body, getStatus).save();
       }
     })
     .then((getStatus) => getStatus ? getStatus.view(true) : null)
