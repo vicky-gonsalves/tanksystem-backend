@@ -50,7 +50,9 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         // if (body.hasOwnProperty('updatedByDevice')) {
         //   getStatus.markModified('updatedByDevice');
         // }
+        console.log(getStatus);
         getStatus = {getStatus, ...body};
+        console.log(getStatus);
         return getStatus.save();
       }
     })
