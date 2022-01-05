@@ -73,7 +73,7 @@ router.get('/pc/turnon',
  * @apiError 404 Bedroom not found.
  */
 router.put('/:id',
-  body({light1, light2, light3, fan, websocket, updatedByDevice}),
+  body({light1: Boolean, light2: Boolean, light3: Boolean, fan: Boolean, websocket: String, updatedByDevice: Boolean}),
   update)
 
 /**
