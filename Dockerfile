@@ -1,4 +1,4 @@
-FROM node:14.10.1-alpine
+FROM node:latest
 
 RUN mkdir -p /usr/src/tanksystem-api
 

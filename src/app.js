@@ -46,22 +46,22 @@ socketio.use((socket, next) => {
 });
 socketio.on('connection', (socket) => {
   if (socket.id === tankSystemId) {
-    updateStatus({ websocket: 'connected' }).then((status) => {
+    updateStatus({websocket: 'connected'}).then((status) => {
       console.log('Tank Status:connected Updated');
     });
   }
   if (socket.id === lightSystemId) {
-    updateLightStatus({ websocket: 'connected' }).then((status) => {
+    updateLightStatus({websocket: 'connected'}).then((status) => {
       console.log('Light Status:connected Updated');
     });
   }
   if (socket.id === bedroomSystemId) {
-    updateBedroomStatus({ websocket: 'connected' }).then((status) => {
+    updateBedroomStatus({websocket: 'connected'}).then((status) => {
       console.log('Bedroom Status:connected Updated');
     });
   }
   console.log('Client connected');
-  socket.emit('welcome', { message: 'Connected !!!!' });
+  socket.emit('welcome', {message: 'Connected !!!!'});
   initializeStatus().then((status) => {
     socket.emit('get-status:init', status)
   });
@@ -71,27 +71,27 @@ socketio.on('connection', (socket) => {
   initializeBedroomStatus().then((status) => {
     socket.emit('bedroom:init', status)
   });
-  socket.on('atime', function(data) {
+  socket.on('atime', function (data) {
     sendTime();
     console.log(data);
   });
-  socket.on('get-status:put', function(data) {
+  socket.on('get-status:put', function (data) {
     updateStatus(data).then((status) => {
       console.log('Tank Status Updated');
     });
   });
-  socket.on('get-light:put', function(data) {
+  socket.on('get-light:put', function (data) {
     updateLightStatus(data).then((status) => {
       console.log('Light Status Updated');
     });
   });
-  socket.on('bedroom:put', function(data) {
+  socket.on('bedroom:put', function (data) {
     updateBedroomStatus(data).then((status) => {
       console.log('Bedroom Status Updated');
     });
   });
 
-  socket.on('log:save', function(data) {
+  socket.on('log:save', function (data) {
     createLog(data).then(() => {
       console.log('log saved');
     });
@@ -113,16 +113,16 @@ socketio.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     if (socket.id === tankSystemId) {
-      updateStatus({ websocket: 'disconnected' }).then((status) => {
+      updateStatus({websocket: 'disconnected'}).then((status) => {
       });
     }
     if (socket.id === lightSystemId) {
-      updateLightStatus({ websocket: 'disconnected' }).then((status) => {
+      updateLightStatus({websocket: 'disconnected'}).then((status) => {
         console.log('Light Status:Disconnected Updated');
       });
     }
     if (socket.id === bedroomSystemId) {
-      updateBedroomStatus({ websocket: 'disconnected' }).then((status) => {
+      updateBedroomStatus({websocket: 'disconnected'}).then((status) => {
         console.log('Bedroom Status:Disconnected Updated');
       });
     }
@@ -130,13 +130,16 @@ socketio.on('connection', (socket) => {
   });
 });
 
-mongoose.connect(mongo.uri, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongo.uri).then(() => {
+  console.log('database connected');
+  // Populate databases with sample data
+  if (seedDB) {
+    require('./seed');
+  }
+}).catch(e => console.log(e));
+
 mongoose.Promise = Promise;
 
-// Populate databases with sample data
-if (seedDB) {
-  require('./seed');
-}
 
 setImmediate(() => {
   server.listen(port, ip, () => {
@@ -148,5 +151,5 @@ export default app;
 
 
 function sendTime() {
-  socketio.sockets.emit('atime', { time: new Date().toJSON() });
+  socketio.sockets.emit('atime', {time: new Date().toJSON()});
 }
