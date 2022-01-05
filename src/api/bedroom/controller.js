@@ -32,26 +32,24 @@ export const update = ({bodymen: {body}, params}, res, next) =>
     .then(notFound(res))
     .then((getStatus) => {
       if (getStatus) {
-        // if (body.hasOwnProperty('light1')) {
-        //   getStatus.markModified('light1');
-        // }
-        // if (body.hasOwnProperty('light2')) {
-        //   getStatus.markModified('light2');
-        // }
-        // if (body.hasOwnProperty('light3')) {
-        //   getStatus.markModified('light3');
-        // }
-        // if (body.hasOwnProperty('fan')) {
-        //   getStatus.markModified('fan');
-        // }
-        // if (body.hasOwnProperty('websocket')) {
-        //   getStatus.markModified('websocket');
-        // }
-        // if (body.hasOwnProperty('updatedByDevice')) {
-        //   getStatus.markModified('updatedByDevice');
-        // }
-        console.log(getStatus);
-        getStatus = {...getStatus, ...body};
+        if (body.hasOwnProperty('light1')) {
+          getStatus.light1 = body.light1;
+        }
+        if (body.hasOwnProperty('light2')) {
+          getStatus.light2 = body.light2;
+        }
+        if (body.hasOwnProperty('light3')) {
+          getStatus.light3 = body.light3;
+        }
+        if (body.hasOwnProperty('fan')) {
+          getStatus.fan = body.fan;
+        }
+        if (body.hasOwnProperty('websocket')) {
+          getStatus.websocket = body.websocket;
+        }
+        if (body.hasOwnProperty('updatedByDevice')) {
+          getStatus.updatedByDevice = body.updatedByDevice;
+        }
         console.log(getStatus);
         return getStatus.save();
       }
