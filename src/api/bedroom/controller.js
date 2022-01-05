@@ -29,14 +29,15 @@ export const show = ({params}, res, next) =>
 
 export const update = ({bodymen: {body}, params}, res, next) =>
   Bedroom.findOneAndUpdate({identifier: params.id}, body)
-    .then(notFound(res))
-    .then((plug) => {
-      if (plug) {
-        return plug.save();
-      }
+    .then(() => {
+      return Bedroom.findOne({identifier: params.id})
+        .then(p => {
+          return p.save();
+        })
+        .then((p) => p ? p.view(true) : null)
+        .then(success(res))
+        .catch(next);
     })
-    .then((plug) => plug ? plug.view(true) : null)
-    .then(success(res))
     .catch(next);
 
 export const destroy = ({params}, res, next) =>
