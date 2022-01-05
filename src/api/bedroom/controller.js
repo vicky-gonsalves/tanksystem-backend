@@ -51,7 +51,7 @@ export const update = ({bodymen: {body}, params}, res, next) =>
         //   getStatus.markModified('updatedByDevice');
         // }
         console.log(getStatus);
-        getStatus = {getStatus, ...body};
+        getStatus = {...getStatus, ...body};
         console.log(getStatus);
         return getStatus.save();
       }
