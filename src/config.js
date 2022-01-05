@@ -62,7 +62,7 @@ const config = {
     mongo: {
       uri: process.env.MONGODB_URI,
       options: {
-        debug: true
+        debug: false
       }
     },
     seedDB: process.env.SEED === 'true',
