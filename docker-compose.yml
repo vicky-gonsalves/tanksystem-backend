@@ -12,6 +12,10 @@ services:
     container_name: 'home_automation_backend'
     networks:
       - network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50k"
   db:
     image: arm64v8/mongo:4.4-focal
     restart: always
