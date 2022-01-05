@@ -70,9 +70,6 @@ bedroomSchema.methods = {
 bedroomSchema.post('save', function(doc) {
   BedroomEvents.emit('save', doc);
 });
-bedroomSchema.post('findOneAndUpdate', function(doc) {
-  BedroomEvents.emit('save', doc);
-});
 bedroomSchema.post('remove', function(doc) {
   BedroomEvents.emit('remove', doc);
 });

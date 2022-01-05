@@ -28,33 +28,10 @@ export const show = ({params}, res, next) =>
     .catch(next)
 
 export const update = ({bodymen: {body}, params}, res, next) =>
-  Bedroom.findOneAndUpdate({identifier: params.id}, body)
+  Bedroom.findOne({identifier: params.id})
     .then(notFound(res))
-    // .then((getStatus) => {
-    //   if (getStatus) {
-    //     if (body.hasOwnProperty('light1')) {
-    //       getStatus.light1 = body.light1;
-    //     }
-    //     if (body.hasOwnProperty('light2')) {
-    //       getStatus.light2 = body.light2;
-    //     }
-    //     if (body.hasOwnProperty('light3')) {
-    //       getStatus.light3 = body.light3;
-    //     }
-    //     if (body.hasOwnProperty('fan')) {
-    //       getStatus.fan = body.fan;
-    //     }
-    //     if (body.hasOwnProperty('websocket')) {
-    //       getStatus.websocket = body.websocket;
-    //     }
-    //     if (body.hasOwnProperty('updatedByDevice')) {
-    //       getStatus.updatedByDevice = body.updatedByDevice;
-    //     }
-    //     console.log(getStatus);
-    //     return getStatus.save();
-    //   }
-    // })
-    .then((getStatus) => getStatus ? getStatus.view(true) : null)
+    .then((plug) => plug ? Object.assign(plug, body).save() : null)
+    .then((plug) => plug ? plug.view(true) : null)
     .then(success(res))
     .catch(next);
 
