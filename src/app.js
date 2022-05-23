@@ -37,7 +37,7 @@ socketio.use((socket, next) => {
       console.log('Received tank system Id :' + tankSystemId);
     }
     if (loginInfo[0] === 'light00000000001') {
-      tankSystemId = socket.id;
+      lightSystemId = socket.id;
       console.log('Received Light system Id :' + lightSystemId);
     }
     if (loginInfo[0] === 'bed00000000001') {
