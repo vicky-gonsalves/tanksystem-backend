@@ -15,7 +15,7 @@ const app = express(apiRoot, api);
 const server = http.createServer(app);
 const socketio = require('socket.io')(server, {
   serveClient: env !== 'production',
-  path: '/socket.io'
+  path: '/socket.io',
   pingInterval: 2000,
   pingTimeout: 3000
 });
