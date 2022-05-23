@@ -17,8 +17,7 @@ const socketio = require('socket.io')(server, {
   serveClient: env !== 'production',
   path: '/socket.io',
   pingInterval: 5000,
-  pingTimeout: 10000,
-  upgrade: false
+  pingTimeout: 10000
 });
 
 require('./socketio').default(socketio);
