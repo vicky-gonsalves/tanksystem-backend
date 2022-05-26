@@ -9,6 +9,8 @@ import {apiRoot, env, ip, isRaspberryPi, mongo, port, seedDB} from './config';
 import express from './services/express';
 import mongoose from './services/mongoose';
 
+require('events').EventEmitter.defaultMaxListeners = 100;
+
 console.log(env);
 
 const app = express(apiRoot, api);
@@ -104,7 +106,7 @@ socketio.on('connection', (socket) => {
   let temperature = 0;
   socket.on('dev:put', function (data) {
     rep++;
-    if (rep >= 1000 && isRaspberryPi) {
+    if (rep >= 5000 && isRaspberryPi) {
       Raspiinfo.temp(function (temp) {
         temperature = temp;
       });
