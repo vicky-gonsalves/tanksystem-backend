@@ -47,7 +47,7 @@ socketio.use((socket, next) => {
         console.log('Received bedroom system Id :' + bedroomSystemId);
         break;
       default:
-        console.log('Received invalid id :' + loginInfo[0]);
+        console.log('Received request from client');
         break;
     }
 
