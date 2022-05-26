@@ -76,17 +76,22 @@ socketio.on('connection', (socket) => {
   });
 
   // Need to call this even as soon as CLIENT is connected
-  socket.on('init', function () {
+  socket.on('init:status', function () {
     initializeStatus().then((status) => {
       socket.emit('get-status:init', status)
     });
+  });
+  socket.on('init:light', function () {
     initializeLightStatus().then((status) => {
       socket.emit('get-light:init', status)
     });
+  });
+  socket.on('init:bedroom', function () {
     initializeBedroomStatus().then((status) => {
       socket.emit('bedroom:init', status)
     });
   });
+
 
   socket.on('get-status:put', function (data) {
     updateStatus(data).then((status) => {
