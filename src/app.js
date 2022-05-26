@@ -32,48 +32,65 @@ socketio.use((socket, next) => {
     let authentication = header.replace(/^Basic/, '');
     authentication = (new Buffer(authentication, 'base64')).toString('utf8');
     let loginInfo = authentication.split(':');
-    if (loginInfo[0] === 'tank00000000001') {
-      tankSystemId = socket.id;
-      console.log('Received tank system Id :' + tankSystemId);
+
+    switch (loginInfo[0]) {
+      case 'tank00000000001':
+        tankSystemId = socket.id;
+        console.log('Received tank system Id :' + tankSystemId);
+        break;
+      case 'light00000000001':
+        lightSystemId = socket.id;
+        console.log('Received Light system Id :' + lightSystemId);
+        break;
+      case 'bed00000000001':
+        bedroomSystemId = socket.id;
+        console.log('Received bedroom system Id :' + bedroomSystemId);
+        break;
+      default:
+        console.log('Received invalid id :' + loginInfo[0]);
+        break;
     }
-    if (loginInfo[0] === 'light00000000001') {
-      lightSystemId = socket.id;
-      console.log('Received Light system Id :' + lightSystemId);
-    }
-    if (loginInfo[0] === 'bed00000000001') {
-      bedroomSystemId = socket.id;
-      console.log('Received bedroom system Id :' + bedroomSystemId);
-    }
+
   }
   return next();
 });
+
 socketio.on('connection', (socket) => {
-  if (socket.id === tankSystemId) {
-    updateStatus({websocket: 'connected'}).then((status) => {
-      console.log('Tank Status:connected Updated');
-    });
+  switch (socket.id) {
+    case tankSystemId:
+      updateStatus({websocket: 'connected'}).then((status) => {
+        console.log('Tank Status:connected Updated');
+      });
+      socket.emit('welcome', {message: 'Connected to Tank Server!!!!'});
+      initializeStatus().then((status) => {
+        socket.emit('get-status:init', status)
+      });
+      break;
+
+    case lightSystemId:
+      updateLightStatus({websocket: 'connected'}).then((status) => {
+        console.log('Light Status:connected Updated');
+      });
+      socket.emit('welcome', {message: 'Connected to Light Server!!!!'});
+      initializeLightStatus().then((status) => {
+        socket.emit('get-light:init', status)
+      });
+      break;
+
+    case bedroomSystemId:
+      updateBedroomStatus({websocket: 'connected'}).then((status) => {
+        console.log('Bedroom Status:connected Updated');
+      });
+      socket.emit('welcome', {message: 'Connected to Bedroom Server!!!!'});
+      initializeBedroomStatus().then((status) => {
+        socket.emit('bedroom:init', status)
+      });
+      break;
+
+    default:
+      console.log('Connected to Client Server!!!!');
+      break;
   }
-  if (socket.id === lightSystemId) {
-    updateLightStatus({websocket: 'connected'}).then((status) => {
-      console.log('Light Status:connected Updated');
-    });
-  }
-  if (socket.id === bedroomSystemId) {
-    updateBedroomStatus({websocket: 'connected'}).then((status) => {
-      console.log('Bedroom Status:connected Updated');
-    });
-  }
-  console.log('Client connected');
-  socket.emit('welcome', {message: 'Connected !!!!'});
-  initializeStatus().then((status) => {
-    socket.emit('get-status:init', status)
-  });
-  initializeLightStatus().then((status) => {
-    socket.emit('get-light:init', status)
-  });
-  initializeBedroomStatus().then((status) => {
-    socket.emit('bedroom:init', status)
-  });
 
   // Need to call this even as soon as CLIENT is connected
   socket.on('init:status', function () {
@@ -130,22 +147,29 @@ socketio.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    if (socket.id === tankSystemId) {
-      updateStatus({websocket: 'disconnected'}).then((status) => {
-        console.log('Tank Status:Disconnected Updated');
-      });
+    switch (socket.id) {
+      case tankSystemId:
+        updateStatus({websocket: 'disconnected'}).then((status) => {
+          console.log('Tank Status:Disconnected Updated');
+        });
+        break;
+
+      case lightSystemId:
+        updateLightStatus({websocket: 'disconnected'}).then((status) => {
+          console.log('Light Status:Disconnected Updated');
+        });
+        break;
+
+      case bedroomSystemId:
+        updateBedroomStatus({websocket: 'disconnected'}).then((status) => {
+          console.log('Bedroom Status:Disconnected Updated');
+        });
+        break;
+
+      default:
+        console.log('Client disconnected!!');
+        break;
     }
-    if (socket.id === lightSystemId) {
-      updateLightStatus({websocket: 'disconnected'}).then((status) => {
-        console.log('Light Status:Disconnected Updated');
-      });
-    }
-    if (socket.id === bedroomSystemId) {
-      updateBedroomStatus({websocket: 'disconnected'}).then((status) => {
-        console.log('Bedroom Status:Disconnected Updated');
-      });
-    }
-    console.log('Client disconnected');
   });
 });
 
