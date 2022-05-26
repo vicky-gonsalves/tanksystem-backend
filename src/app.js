@@ -119,6 +119,7 @@ socketio.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (socket.id === tankSystemId) {
       updateStatus({websocket: 'disconnected'}).then((status) => {
+        console.log('Tank Status:Disconnected Updated');
       });
     }
     if (socket.id === lightSystemId) {
