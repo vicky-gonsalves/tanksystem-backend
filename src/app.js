@@ -74,10 +74,20 @@ socketio.on('connection', (socket) => {
   initializeBedroomStatus().then((status) => {
     socket.emit('bedroom:init', status)
   });
-  socket.on('atime', function (data) {
-    sendTime();
-    console.log(data);
+
+  // Need to call this even as soon as CLIENT is connected
+  socket.on('init', function () {
+    initializeStatus().then((status) => {
+      socket.emit('get-status:init', status)
+    });
+    initializeLightStatus().then((status) => {
+      socket.emit('get-light:init', status)
+    });
+    initializeBedroomStatus().then((status) => {
+      socket.emit('bedroom:init', status)
+    });
   });
+
   socket.on('get-status:put', function (data) {
     updateStatus(data).then((status) => {
       console.log('Tank Status Updated');
