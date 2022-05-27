@@ -92,8 +92,8 @@ export const updateBedroomStatus = (payload) => {
 };
 
 export const wakePC = ({params}, res, next) => {
-  console.log('Waking up PC: 08-62-66-9E-B2-90 on IP 192.168.0.154');
-  wol.wake('08-62-66-9E-B2-90', {
+  console.log('Waking up PC: 08:62:66:9E:B2:90 on IP 192.168.0.154');
+  wol.wake('08:62:66:9E:B2:90', {
     address: '192.168.0.154',
     port: 9
   }, (err, done) => {
