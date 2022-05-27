@@ -5,7 +5,7 @@ metadata:
     run: api
   name: api-controller
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       run: api
@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
         - image: vickygonsalves/tanksystem-api
+          imagePullPolicy: Always
           name: api
           ports:
           - containerPort: 9000
