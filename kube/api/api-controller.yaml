@@ -21,3 +21,19 @@ spec:
           ports:
           - containerPort: 9000
             name: http-server
+      ports:
+        - name: liveness-port
+          containerPort: 9000
+          hostPort: 9000
+      livenessProbe:
+        httpGet:
+          path: /api/get-statuses
+          port: liveness-port
+        failureThreshold: 1
+        periodSeconds: 10
+      startupProbe:
+        httpGet:
+          path: /api/get-statuses
+          port: liveness-port
+        failureThreshold: 30
+        periodSeconds: 10
