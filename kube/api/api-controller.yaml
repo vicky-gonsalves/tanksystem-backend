@@ -18,10 +18,6 @@ spec:
         - image: vickygonsalves/tanksystem-api
           imagePullPolicy: Always
           name: api
-          sessionAffinity: ClientIP
-          sessionAffinityConfig:
-            clientIP:
-              timeoutSeconds: 10000
           ports:
           - containerPort: 9000
             hostPort: 9000
