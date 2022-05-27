@@ -11,5 +11,9 @@ spec:
       targetPort: 9000
       protocol: TCP
       nodePort: 30000
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10000
   selector:
     run: api
