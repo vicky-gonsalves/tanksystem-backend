@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "apidoc": "^0.51.1",
-    "apidoc-markdown": "^7.1.1",
+    "apidoc-markdown": "^7.2.3",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^28.1.0",
     "eslint": "^8.16.0",
@@ -37,7 +37,7 @@
     "jest-cli": "^28.1.0",
     "mockgoose": "^8.0.4",
     "nock": "^13.2.4",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.20",
     "opn-cli": "^1.0.0",
     "sinon": "^14.0.0",
     "supertest": "^6.2.3"
